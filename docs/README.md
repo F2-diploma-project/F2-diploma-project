@@ -17,7 +17,7 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 
 ## Розділ 1. Аналіз предметної області та постановка задачі
 
-Робочий документ Розділу 1 (Google Docs, режим «Can comment»): *посилання додається після публікації документа*.
+Робочий документ Розділу 1 (Google Docs, режим «Can comment»): [Розділ 1 у Google Docs](https://docs.google.com/document/d/1r-pGt1S_RTQ6oLDvyBx3bU2CkBM3q7gJ/edit)
 
 ### Матриця нефункціональних вимог (NFRs)
 
