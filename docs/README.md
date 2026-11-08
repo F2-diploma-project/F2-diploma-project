@@ -10,7 +10,9 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | --- | --- | --- |
 | [`0_intro.md`](./0_intro.md) | Вступ (науковий апарат: актуальність, об'єкт, предмет, мета, завдання) | Заповнено |
 | [`1_analysis.md`](./1_analysis.md) | Розділ 1. Аналіз предметної області та постановка задачі дослідження | На рев'ю |
-| [`2_design.md`](./2_design.md) | Розділ 2. Архітектурне проєктування (UML, C4 Model, схема даних) | Заплановано |
+| [`srs.md`](./srs.md) | Специфікація вимог до ПЗ (SRS, ISO/IEC/IEEE 29148) | Заповнено |
+| [`2_design.md`](./2_design.md) | Розділ 2. Архітектурне проєктування (C4 Model рівні 1–3; UML і схема даних — заплановано) | У роботі |
+| [`adr/`](./adr/) | Architecture Decision Records | ADR-001 затверджено |
 | [`3_implementation.md`](./3_implementation.md) | Розділ 3. Реалізація (інтерфейс, тестування, деплой) | Заплановано |
 | [`4_conclusions.md`](./4_conclusions.md) | Висновки | Заплановано |
 | [`proposal.md`](./proposal.md) | Thesis Proposal | Заповнено |
@@ -26,12 +28,18 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | Продуктивність | API read p95 ≤ 200 мс при 500 RPS; write p95 ≤ 500 мс при 100 RPS |
 | Асинхронна обробка | 202 Accepted p95 ≤ 1 с; чернетка лота з фото p95 ≤ 15 с |
 | Якість розпізнавання | ≥ 90 % на вибірці не менше 100 зображень |
-| Безпека | OAuth 2.0 / OIDC, підписані JWT (access ≤ 15 хв), TLS 1.3, OWASP API Security Top 10, rate limit 100 запитів/хв |
+| Безпека | Підписані JWT (RS256, access ≤ 15 хв, refresh ≤ 7 діб із ротацією), TLS 1.3, OWASP API Security Top 10, rate limit 100 запитів/хв |
 | Комплаєнс | GDPR; зберігання зображень не довше 30 діб |
 | Надійність | 3 повторні спроби з експоненційною затримкою, dead-letter; RPO ≤ 24 год; RTO ≤ 1 год; /health p95 ≤ 100 мс |
 | Якість коду | Jest, Supertest: покриття сервісного шару ≥ 80 %; Maestro: E2E |
 
-Повний перелік вимог: [`1_analysis.md`](./1_analysis.md), підрозділ 1.5.
+Повний перелік вимог: [`srs.md`](./srs.md); вихідне формулювання — [`1_analysis.md`](./1_analysis.md), підрозділ 1.5.
+
+## Розділ 2. Архітектурне проєктування
+
+- [`srs.md`](./srs.md) — специфікація вимог з унікальними ідентифікаторами (SRS-FUN, SRS-NFR) і критеріями верифікації;
+- [`2_design.md`](./2_design.md) — C4 Model: [Context](./2_design.md#diagram-level1), [Container](./2_design.md#diagram-level2), [Component](./2_design.md#diagram-level3);
+- [`adr/0001-choice-of-technology.md`](./adr/0001-choice-of-technology.md) — ADR-001: вибір черги фонових задач.
 
 ## Календарний план
 
@@ -39,7 +47,7 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | --- | --- | --- | --- |
 | 1 | Аналіз аналогів та формування технічного завдання | Жовтень 2026 | In Progress |
 | 2 | Обґрунтування технологічного стеку та узгодження REST API-контракту з B2C-модулем | Листопад 2026 | To Do |
-| 3 | Проєктування архітектури UML/C4 Model та схеми бази даних | Грудень 2026 | To Do |
+| 3 | Проєктування архітектури UML/C4 Model та схеми бази даних | Грудень 2026 | In Progress |
 | 4 | Алгоритмізація модуля Snap & Sell та черги фонових задач (BullMQ) | Січень 2027 | To Do |
 | 5 | Проєктування інтерфейсу мобільного застосунку та схеми розгортання (Docker/CI-CD) | Лютий 2027 | To Do |
 | 6 | Реалізація базового функціоналу мобільного застосунку (CRUD, ролі, QR) та фінансової аналітики | 1–20 березня 2027 | To Do |
