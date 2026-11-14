@@ -1,4 +1,5 @@
-import { Tabs, usePathname, useRouter } from 'expo-router';
+import { Redirect, Tabs, usePathname, useRouter } from 'expo-router';
+import { useAuth } from '../../data/auth';
 import { BottomNav, type NavItem } from '../../components/ui';
 
 const ITEMS: NavItem[] = [
@@ -16,6 +17,8 @@ function CashierTabBar() {
 
 /** Екрани касира з висячою нижньою навігацією. */
 export default function CashierLayout() {
+  const { session } = useAuth();
+  if (!session) return <Redirect href="/login" />;
   return (
     <Tabs screenOptions={{ headerShown: false }} tabBar={() => <CashierTabBar />}>
       <Tabs.Screen name="lots" />
