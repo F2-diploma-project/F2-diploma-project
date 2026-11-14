@@ -979,20 +979,34 @@ paths:
     post:
       tags: [Redemptions]
       operationId: redeemQrToken
-      summary: Підтвердження видачі за QR-кодом
+      summary: Підтвердження видачі за QR-кодом або кодом підтвердження
       description: |
-        Роль: `admin` або `cashier`. Перевірка та погашення токена виконуються однією атомарною операцією: із двох
-        одночасних запитів із тим самим токеном успішним є лише один. Токен іншого закладу дає `404 TOKEN_NOT_FOUND`
-        без розкриття факту його існування. Порядок перевірок: формат, наявність і належність закладу, повторне
-        використання (`409`), строк дії (`410`).
+        Роль: `admin` або `cashier`. Замовлення визначається токеном зі сканованого QR-коду (`token`) або кодом
+        підтвердження, який касир вводить вручну (`confirmation_code`); у запиті рівно одне з полів. Перевірка та
+        погашення виконуються однією атомарною операцією: із двох одночасних запитів для того самого замовлення
+        успішним є лише один. Токен або код іншого закладу дає `404 TOKEN_NOT_FOUND` без розкриття факту його
+        існування. Порядок перевірок: формат, наявність і належність закладу, повторне використання (`409`),
+        строк дії (`410`). Після завершення вікна видачі касир може свідомо видати замовлення з `allow_late: true` —
+        тоді `410` не повертається, а у відповіді й журналі видач `late: true`.
+
+        Введення коду вручну обмежене: не більше 10 запитів із `confirmation_code` на хвилину для одного касира
+        (разом із `POST /v1/venue/redemptions/lookup`); понад ліміт — `429` із `Retry-After`.
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/RedeemRequest'
-            example:
-              token: 3q2-7QkVx2Zs0mY1vJm8dRk9Lw5aYhT4nB6cE1uFgXo
+            examples:
+              qr:
+                summary: За QR-кодом
+                value:
+                  token: 3q2-7QkVx2Zs0mY1vJm8dRk9Lw5aYhT4nB6cE1uFgXo
+              late:
+                summary: Кодом вручну, після завершення вікна видачі
+                value:
+                  confirmation_code: K7Q-4M2
+                  allow_late: true
       responses:
         '200':
           description: Видачу підтверджено.
@@ -1035,6 +1049,52 @@ paths:
                 message: Token has expired.
                 details:
                   expired_at: '2026-11-10T21:00:00+02:00'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /v1/venue/redemptions/lookup:
+    post:
+      tags: [Redemptions]
+      operationId: lookupRedemption
+      summary: Перегляд замовлення перед видачею
+      description: |
+        Роль: `admin` або `cashier`. Повертає вміст і стан замовлення за токеном із QR-коду або кодом
+        підтвердження, нічого не змінюючи. Застосунок показує касиру, що саме видавати, і лише після його
+        підтвердження викликає `POST /v1/venue/redemptions`. Уже видане замовлення повертається зі
+        `status: picked_up` (не помилкою), щоб касир побачив, коли його видали. Токен або код іншого закладу —
+        `404 TOKEN_NOT_FOUND`. Ліміт для `confirmation_code` — спільний із видачею (10 на хвилину на касира).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedemptionLookupRequest'
+            example:
+              confirmation_code: K7Q-4M2
+      responses:
+        '200':
+          description: Замовлення знайдено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderPreview'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Токен або код не знайдено чи належить іншому закладу.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: TOKEN_NOT_FOUND
+                message: Token not found.
         '429':
           $ref: '#/components/responses/TooManyRequests'
         '503':
@@ -2274,19 +2334,106 @@ components:
 
     RedeemRequest:
       type: object
-      required: [token]
+      description: Рівно одне з `token` або `confirmation_code`.
       additionalProperties: false
+      oneOf:
+        - required: [token]
+        - required: [confirmation_code]
       properties:
         token:
+          $ref: '#/components/schemas/QrToken'
+        confirmation_code:
+          $ref: '#/components/schemas/ConfirmationCode'
+        allow_late:
+          type: boolean
+          default: false
+          description: Касир свідомо видає замовлення після завершення вікна видачі.
+
+    RedemptionLookupRequest:
+      type: object
+      description: Рівно одне з `token` або `confirmation_code`.
+      additionalProperties: false
+      oneOf:
+        - required: [token]
+        - required: [confirmation_code]
+      properties:
+        token:
+          $ref: '#/components/schemas/QrToken'
+        confirmation_code:
+          $ref: '#/components/schemas/ConfirmationCode'
+
+    QrToken:
+      type: string
+      minLength: 43
+      maxLength: 43
+      pattern: '^[A-Za-z0-9_-]{43}$'
+      description: Токен зі сканованого QR-коду; base64url від 256 біт.
+
+    ConfirmationCode:
+      type: string
+      pattern: '^[A-Z0-9]{3}-[A-Z0-9]{3}$'
+      description: Код підтвердження з-під QR-коду, 6 символів із дефісом посередині (як у `OrderQr.confirmation_code`).
+      example: K7Q-4M2
+
+    OrderPreview:
+      type: object
+      required: [order_id, confirmation_code, lot_name, photo_url, quantity, unit_price_minor, total_minor, currency, pickup_from, pickup_to, status]
+      properties:
+        order_id:
           type: string
-          minLength: 43
-          maxLength: 43
-          pattern: '^[A-Za-z0-9_-]{43}$'
-          description: Токен зі сканованого QR-коду; base64url від 256 біт.
+          format: uuid
+        confirmation_code:
+          $ref: '#/components/schemas/ConfirmationCode'
+        lot_name:
+          type: string
+        photo_url:
+          type: [string, 'null']
+          format: uri
+          description: Фото лота (як у `VenueLot.photo_url`); `null`, якщо фото немає.
+        quantity:
+          type: integer
+          minimum: 1
+        unit_price_minor:
+          type: integer
+          minimum: 0
+          description: Ціна за одиницю, сплачена покупцем (після Price Decay Теми 1).
+        total_minor:
+          type: integer
+          minimum: 0
+          description: '`unit_price_minor × quantity`.'
+        currency:
+          type: string
+          enum: [UAH]
+        pickup_from:
+          type: string
+          format: date-time
+        pickup_to:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [awaiting_pickup, picked_up]
+        redeemed_at:
+          type: [string, 'null']
+          format: date-time
+          description: Час видачі; `null`, доки замовлення не видано.
+      example:
+        order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        confirmation_code: K7Q-4M2
+        lot_name: Сет «Круасан + кава»
+        photo_url: https://b2b.example.com/media/lots/3f2b8c1e.jpg
+        quantity: 2
+        unit_price_minor: 6900
+        total_minor: 13800
+        currency: UAH
+        pickup_from: '2026-11-15T18:00:00+02:00'
+        pickup_to: '2026-11-15T21:00:00+02:00'
+        status: awaiting_pickup
+        redeemed_at: null
 
     Redemption:
       type: object
-      required: [order_id, confirmation_code, lot_name, quantity, redeemed_at]
+      required: [order_id, confirmation_code, lot_name, quantity, redeemed_at, late]
       properties:
         order_id:
           type: string
@@ -2301,6 +2448,9 @@ components:
         redeemed_at:
           type: string
           format: date-time
+        late:
+          type: boolean
+          description: 'Видано після завершення вікна видачі (запит з `allow_late: true`).'
 
     AnalyticsSummary:
       type: object
@@ -2581,8 +2731,9 @@ components:
         confirmation_code:
           type: string
           description: |
-            Короткий код для візуальної звірки касиром. Не є вмістом QR-коду й не приймається для погашення;
-            QR-код містить токен довжиною 256 біт, який приймає `POST /v1/venue/redemptions`.
+            Короткий код (6 символів, напр. `K7Q-4M2`) під QR-кодом. Не є вмістом QR-коду. Касир може ввести його
+            вручну, якщо QR не сканується: B2B-система приймає його в `POST /v1/venue/redemptions` з обмеженням
+            кількості спроб. QR-код містить токен довжиною 256 біт.
         status:
           type: string
           description: |
