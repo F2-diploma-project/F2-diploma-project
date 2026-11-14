@@ -23,7 +23,20 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Камера потрібна, щоб сфотографувати вітрину й сканувати QR-коди замовлень.",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Доступ до фото потрібен, щоб вибрати знімок вітрини з галереї."
+        }
+      ]
     ],
     "scheme": "f2b2b"
   }

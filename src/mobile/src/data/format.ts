@@ -49,3 +49,18 @@ export function lotSubtitle(lot: StaffLot): string {
   if (lot.status === 'sold_out') return `Розпродано · до ${formatTime(lot.pickup_to)}`;
   return `${lot.quantity} ${plural(lot.quantity, UNIT[lot.unit])} · до ${formatTime(lot.pickup_to)}`;
 }
+
+/** Джерело зображення: локальний ресурс (число з `require`) або адреса знімка. */
+export function imageSource(photo: number | string): number | { uri: string } {
+  return typeof photo === 'string' ? { uri: photo } : photo;
+}
+
+/** Підписи алергенів українською (коди — як в API). */
+export const ALLERGEN_LABEL: Record<import('./types').AllergenCode, string> = {
+  gluten: 'Глютен',
+  nuts: 'Горіхи',
+  milk: 'Молоко',
+  eggs: 'Яйця',
+  soy: 'Соя',
+  fish: 'Риба',
+};

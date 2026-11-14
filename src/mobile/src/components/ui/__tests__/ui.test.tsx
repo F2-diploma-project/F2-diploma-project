@@ -15,7 +15,7 @@ const wrap = (ui: ReactElement) => render(<ThemeProvider>{ui}</ThemeProvider>);
 
 const lot: StaffLot = {
   id: 'l1', name: 'Кіш зі шпинатом', base_price_minor: 6000, regular_price_minor: 12000, quantity: 1, unit: 'pcs',
-  pickup_to: new Date(2026, 10, 15, 21, 0).toISOString(), status: 'active', is_bundle: false, photo: null,
+  pickup_to: new Date(2026, 10, 15, 21, 0).toISOString(), status: 'active', is_bundle: false, photo: null, allergens: [], version: 1,
 };
 
 describe('LotCard', () => {

@@ -86,6 +86,7 @@ export function LoginScreen({ service, onSignedIn }: { service: AuthService; onS
                   autoCorrect={false}
                   autoComplete="username"
                   textContentType="username"
+                  returnKeyType="next"
                   error={Boolean(loginError)}
                   theme={fieldTheme}
                   style={{ backgroundColor: c.card }}
@@ -104,6 +105,8 @@ export function LoginScreen({ service, onSignedIn }: { service: AuthService; onS
                   autoCorrect={false}
                   autoComplete="password"
                   textContentType="password"
+                  returnKeyType="go"
+                  onSubmitEditing={submit}
                   error={Boolean(passwordError)}
                   theme={fieldTheme}
                   style={{ backgroundColor: c.card }}

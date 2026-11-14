@@ -78,4 +78,8 @@ describe('типографіка', () => {
   it('висота рядка не менша за розмір шрифту', () => {
     for (const style of Object.values(typeScale)) expect(style.lineHeight).toBeGreaterThanOrEqual(style.fontSize);
   });
+
+  it('title/medium — 16/20: назви на двох рядках не розходяться (рішення Марії)', () => {
+    expect(typeScale.titleMedium).toMatchObject({ fontSize: 16, lineHeight: 20 });
+  });
 });

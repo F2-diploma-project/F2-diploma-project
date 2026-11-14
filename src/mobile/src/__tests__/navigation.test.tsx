@@ -5,13 +5,21 @@ import { ThemeProvider } from '../theme';
 import { AuthProvider } from '../data/auth';
 import { MOCK_ACCOUNTS } from '../data/mockAuth';
 import Login from '../app/login';
-import CashierLayout from '../app/(cashier)/_layout';
-import CashierLots from '../app/(cashier)/lots';
-import CashierPickup from '../app/(cashier)/pickup';
-import CashierProfile from '../app/(cashier)/profile';
+import StaffLayout from '../app/(staff)/_layout';
+import CashierLayout from '../app/(staff)/(cashier)/_layout';
+import CashierLots from '../app/(staff)/(cashier)/lots';
+import CashierPickup from '../app/(staff)/(cashier)/pickup';
+import CashierProfile from '../app/(staff)/(cashier)/profile';
+import SnapCamera from '../app/(staff)/snap/camera';
+import LotEditor from '../app/(staff)/lot/[id]';
 import Index from '../app/index';
 
 jest.mock('react-native/Libraries/Utilities/useColorScheme', () => ({ __esModule: true, default: () => 'light' }));
+jest.mock('expo-camera', () => ({
+  useCameraPermissions: () => [{ granted: true, canAskAgain: true }, jest.fn()],
+  CameraView: () => null,
+}));
+jest.mock('expo-image-picker', () => ({ launchImageLibraryAsync: jest.fn() }));
 
 let session: { role: 'cashier' | 'admin'; login: string } | null = { role: 'cashier', login: 'cashier.olena' };
 
@@ -25,10 +33,13 @@ const routes = {
   ),
   login: Login,
   index: Index,
-  '(cashier)/_layout': CashierLayout,
-  '(cashier)/lots': CashierLots,
-  '(cashier)/pickup': CashierPickup,
-  '(cashier)/profile': CashierProfile,
+  '(staff)/_layout': StaffLayout,
+  '(staff)/(cashier)/_layout': CashierLayout,
+  '(staff)/(cashier)/lots': CashierLots,
+  '(staff)/(cashier)/pickup': CashierPickup,
+  '(staff)/(cashier)/profile': CashierProfile,
+  '(staff)/snap/camera': SnapCamera,
+  '(staff)/lot/[id]': LotEditor,
 };
 
 describe('Вхід і ролі', () => {
@@ -70,5 +81,19 @@ describe('Навігація касира', () => {
     await user.press(await screen.findByRole('tab', { name: 'Видача' }));
     expect(await screen.findByRole('header', { name: 'Видача' })).toBeOnTheScreen();
     expect(screen.getByRole('tab', { name: 'Видача' })).toBeSelected();
+  });
+
+  it('«Сфотографувати вітрину» відкриває камеру Snap & Sell', async () => {
+    const user = userEvent.setup();
+    await renderRouter(routes, { initialUrl: '/lots' });
+    await user.press(await screen.findByRole('button', { name: 'Сфотографувати вітрину' }));
+    expect(await screen.findByText('Snap & Sell · фото вітрини')).toBeOnTheScreen();
+  });
+
+  it('чернетка відкривається для редагування з вкладки «Чернетки»', async () => {
+    const user = userEvent.setup();
+    await renderRouter(routes, { initialUrl: '/lots?tab=draft' });
+    await user.press(await screen.findByRole('button', { name: /Сирник із родзинками/ }, { timeout: 3000 }));
+    expect(await screen.findByRole('header', { name: 'Чернетка лота' })).toBeOnTheScreen();
   });
 });

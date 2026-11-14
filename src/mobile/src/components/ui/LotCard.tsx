@@ -1,11 +1,11 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { formatDiscount, formatPrice, isLowStock, lotSubtitle } from '../../data/format';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { formatDiscount, formatPrice, imageSource, isLowStock, lotSubtitle } from '../../data/format';
 import type { StaffLot } from '../../data/types';
 import { useTheme } from '../../theme';
 import { Icon } from '../icons/Icon';
 
 /** Картка лота: фото, назва, залишок, ціна зі старою ціною й знижкою (компонент «Лот / рядок» у Figma). */
-export function LotCard({ lot }: { lot: StaffLot }) {
+export function LotCard({ lot, onPress }: { lot: StaffLot; onPress?: () => void }) {
   const t = useTheme();
   const c = t.colors;
   const price = formatPrice(lot.base_price_minor);
@@ -16,9 +16,16 @@ export function LotCard({ lot }: { lot: StaffLot }) {
   const label = [lot.name, old ? `${price} замість ${old}` : price, subtitle].join(', ').replace(/ /g, ' ');
 
   return (
-    <View accessible accessibilityLabel={label} style={[styles.card, { backgroundColor: c.card, borderRadius: t.radius.card, padding: t.space.md, gap: t.space.md }]}>
+    <Pressable
+      disabled={!onPress}
+      onPress={onPress}
+      accessible
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityLabel={label}
+      style={({ pressed }) => [styles.card, { backgroundColor: c.card, borderRadius: t.radius.card, padding: t.space.md, gap: t.space.md, opacity: pressed ? 0.85 : 1 }]}
+    >
       <View style={[styles.thumb, { borderRadius: t.radius.thumb, backgroundColor: c.surfaceVariant }]}>
-        {lot.photo ? <Image source={lot.photo} style={styles.photo} /> : <Icon name="image" color={c.outline} />}
+        {lot.photo ? <Image source={imageSource(lot.photo)} style={styles.photo} /> : <Icon name="image" color={c.outline} />}
       </View>
       <View style={styles.text}>
         <Text style={[t.type.titleMedium, { color: c.onSurface }]} numberOfLines={2}>{lot.name}</Text>
@@ -42,7 +49,7 @@ export function LotCard({ lot }: { lot: StaffLot }) {
           </View>
         ) : null}
       </View>
-    </View>
+    </Pressable>
   );
 }
 
