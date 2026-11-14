@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme';
@@ -21,15 +22,25 @@ export function useBottomNavInset() {
   return useNavBottom() + t.size.navHeight + t.space.md;
 }
 
-/** Висяча нижня навігація (варіант B): рівні пункти, активний залитий капсулою. */
-export function BottomNav({ items, active, onPress }: { items: NavItem[]; active: string; onPress: (key: string) => void }) {
+/** Тінь «F2/Тінь м’яка» (y 8, розмиття 28, 8 %) — навігація й кнопка біля неї. */
+export const SOFT_SHADOW = {
+  shadowColor: '#0A2826',
+  shadowOpacity: 0.08,
+  shadowRadius: 14,
+  shadowOffset: { width: 0, height: 8 },
+  elevation: 6,
+} as const;
+
+/** Висяча нижня навігація (варіант B): рівні пункти, активний залитий капсулою; `accessory` — кнопка праворуч у тому ж ряду. */
+export function BottomNav({ items, active, onPress, accessory }: { items: NavItem[]; active: string; onPress: (key: string) => void; accessory?: ReactNode }) {
   const t = useTheme();
   const c = t.colors;
   const bottom = useNavBottom();
   const width = items.length <= 3 ? 264 : 388;
   return (
     <View pointerEvents="box-none" style={[styles.wrap, { bottom }]}>
-      <View accessibilityRole="tablist" style={[styles.bar, { width, maxWidth: '100%', backgroundColor: c.card, borderRadius: t.radius.full, padding: 6 }]}>
+      <View testID="bottom-nav-row" pointerEvents="box-none" style={{ flexDirection: 'row', alignItems: 'center', gap: t.space.sm }}>
+      <View accessibilityRole="tablist" style={[styles.bar, SOFT_SHADOW, { width, maxWidth: '100%', backgroundColor: c.card, borderRadius: t.radius.full, padding: 6 }]}>
         {items.map((item) => {
           const on = item.key === active;
           const fg = on ? c.onPrimaryContainer : c.onSurfaceVariant;
@@ -48,19 +59,14 @@ export function BottomNav({ items, active, onPress }: { items: NavItem[]; active
           );
         })}
       </View>
+      {accessory}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', left: 12, right: 12, alignItems: 'center' },
-  bar: {
-    flexDirection: 'row',
-    shadowColor: '#0A2826',
-    shadowOpacity: 0.08,
-    shadowRadius: 14,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 6,
-  },
+  bar: { flexDirection: 'row' },
   item: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 8, paddingHorizontal: 2, gap: 2 },
 });

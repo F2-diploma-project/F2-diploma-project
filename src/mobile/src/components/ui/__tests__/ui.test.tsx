@@ -4,6 +4,7 @@ import { ThemeProvider } from '../../../theme';
 import { colors } from '../../../theme/tokens';
 import { Banner } from '../Banner';
 import { BottomNav } from '../BottomNav';
+import { CameraFab } from '../CameraFab';
 import { EmptyState } from '../EmptyState';
 import { LotCard } from '../LotCard';
 import { SegmentTabs } from '../SegmentTabs';
@@ -61,6 +62,25 @@ describe('BottomNav', () => {
   it('пункти не менші за 48 точок', async () => {
     await wrap(<BottomNav active="lots" onPress={jest.fn()} items={[{ key: 'lots', label: 'Лоти', icon: 'sell' }]} />);
     expect(screen.getByRole('tab', { name: 'Лоти' })).toHaveStyle({ minHeight: 48 });
+  });
+});
+
+describe('CameraFab', () => {
+  it('кругла кнопка 70 без підпису, з доступною назвою, колір primary', async () => {
+    const onPress = jest.fn();
+    const user = userEvent.setup();
+    await wrap(<CameraFab onPress={onPress} />);
+    const btn = screen.getByRole('button', { name: 'Сфотографувати вітрину' });
+    expect(screen.queryByText('Сфотографувати вітрину')).toBeNull();
+    expect(btn).toHaveStyle({ width: 70, height: 70, backgroundColor: colors.light.primary });
+    await user.press(btn);
+    expect(onPress).toHaveBeenCalled();
+  });
+
+  it('стоїть праворуч від навігації в одному ряду з проміжком 8', async () => {
+    await wrap(<BottomNav active="lots" onPress={jest.fn()} items={[{ key: 'lots', label: 'Лоти', icon: 'sell' }]} accessory={<CameraFab onPress={jest.fn()} />} />);
+    expect(screen.getByTestId('bottom-nav-row')).toHaveStyle({ flexDirection: 'row', gap: 8 });
+    expect(screen.getByRole('button', { name: 'Сфотографувати вітрину' })).toBeOnTheScreen();
   });
 });
 

@@ -90,6 +90,15 @@ describe('Навігація касира', () => {
     expect(await screen.findByText('Snap & Sell · фото вітрини')).toBeOnTheScreen();
   });
 
+  it('кнопка камери є лише на «Лотах»', async () => {
+    const user = userEvent.setup();
+    await renderRouter(routes, { initialUrl: '/lots' });
+    expect(await screen.findByRole('button', { name: 'Сфотографувати вітрину' })).toBeOnTheScreen();
+    await user.press(screen.getByRole('tab', { name: 'Видача' }));
+    await screen.findByRole('header', { name: 'Видача' });
+    expect(screen.queryByRole('button', { name: 'Сфотографувати вітрину' })).toBeNull();
+  });
+
   it('чернетка відкривається для редагування з вкладки «Чернетки»', async () => {
     const user = userEvent.setup();
     await renderRouter(routes, { initialUrl: '/lots?tab=draft' });
