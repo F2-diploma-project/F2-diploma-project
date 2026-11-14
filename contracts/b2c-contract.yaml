@@ -31,6 +31,8 @@ info:
     - Час — ISO 8601 з часовою зоною (`2026-10-10T18:30:00+03:00`).
     - Ідентифікатори — UUID.
     - Помилки — єдиний формат `Error` (`code`, `message`, `details`).
+    - Ліміт запитів — 100 за хвилину на ключ; перевищення дає `429` із
+      заголовком `Retry-After` (через скільки секунд повторити запит).
     - Автентифікація — API-ключ у заголовку `X-API-Key`. Для кожного
       напрямку викликів — окремий ключ. Зараз усі виклики йдуть у напрямку
       Тема 1 → Тема 2, тому використовується один ключ, виданий Темою 2
@@ -76,6 +78,8 @@ paths:
                 status: ok
                 version: 0.1.0
                 time: '2026-10-10T18:30:00+03:00'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '503':
           description: Система запущена, але залежність (БД або Redis) недоступна.
           content:
@@ -107,6 +111,10 @@ paths:
 
         Базова ціна (`base_price_minor`) — вхідні дані для ціноутворення Теми 1;
         B2B її не змінює після публікації без оновлення лота у фіді.
+
+        Опитування фіду — це обмін між бекендами. Оновлення лотів кінцевим
+        клієнтам Тема 1 транслює сама, через власний WebSocket-канал; у цьому
+        контракті такого виклику немає.
       x-agreement-status: pending
       parameters:
         - name: updated_since
@@ -142,7 +150,7 @@ paths:
                 $ref: '#/components/schemas/LotsFeedPage'
               examples:
                 withLots:
-                  summary: Звичайний лот і смарт-бандл
+                  summary: Звичайний лот, смарт-бандл і лот магазину
                   value:
                     items:
                       - id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
@@ -155,6 +163,7 @@ paths:
                             lng: 30.5222
                         name: Круасан з маслом
                         description: Свіжа випічка сьогоднішнього дня.
+                        category: Випічка
                         base_price_minor: 4500
                         currency: UAH
                         quantity: 5
@@ -176,6 +185,7 @@ paths:
                             lng: 30.5222
                         name: Круасан + кава
                         description: null
+                        category: null
                         base_price_minor: 8000
                         currency: UAH
                         quantity: 3
@@ -191,6 +201,28 @@ paths:
                             quantity: 1
                         status: active
                         updated_at: '2026-10-10T18:25:00+03:00'
+                      - id: 5d4c3b2a-1f0e-4d9c-8b7a-6f5e4d3c2b1a
+                        venue:
+                          id: 6e5f4a3b-2c1d-4e0f-9a8b-7c6d5e4f3a2b
+                          name: Мінімаркет «Свіжість»
+                          address: Київ, вул. Саксаганського, 42
+                          location:
+                            lat: 50.4380
+                            lng: 30.5178
+                        name: Йогурт питний 300 г
+                        description: Термін придатності спливає завтра.
+                        category: Молочні продукти
+                        base_price_minor: 3800
+                        currency: UAH
+                        quantity: 12
+                        pickup_from: '2026-10-10T18:30:00+03:00'
+                        pickup_to: '2026-10-10T22:00:00+03:00'
+                        allergens: [milk]
+                        photo_url: null
+                        is_bundle: false
+                        bundle_items: []
+                        status: active
+                        updated_at: '2026-10-10T18:28:00+03:00'
                     next_cursor: null
                     server_time: '2026-10-10T18:30:00+03:00'
                 empty:
@@ -203,6 +235,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalError'
 
@@ -210,8 +244,10 @@ paths:
     get:
       tags: [Lots]
       operationId: getLot
-      summary: Актуальний стан і залишок одного лота
+      summary: Актуальний стан і залишок одного лота (допоміжний виклик)
       description: |
+        Допоміжний, необов'язковий виклик: ті самі дані Тема 1 отримує з фіду.
+
         [ДО УЗГОДЖЕННЯ з Темою 1] Тема 1 може викликати перед бронюванням або
         автовикупом (крок 3), щоб переконатися, що лот активний і залишку
         достатньо — наприклад, якщо касир щойно списав товар у POS.
@@ -240,6 +276,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/LotNotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalError'
 
@@ -258,10 +296,17 @@ paths:
         не зменшує залишок удруге і повертає `200` з тим самим результатом.
         Той самий `order_id` з іншими даними — `409 ORDER_ID_CONFLICT`.
 
+        **Резервування.** Одиниці лота Тема 1 резервує у себе до цього виклику
+        (наприклад, через `SELECT ... FOR UPDATE SKIP LOCKED` у власній БД);
+        Тема 2 зменшує залишок лише під час підтвердження і сама перевіряє,
+        що його достатньо (`409 INSUFFICIENT_QUANTITY`).
+
         [ДО УЗГОДЖЕННЯ з Темою 1] Купівля за кількістю (`quantity`);
         смарт-бандл купується як один лот, `quantity` — кількість бандлів.
         Фінальна ціна (`unit_price_minor`) потрібна Темі 2 для аналітики
-        відновленого доходу.
+        відновленого доходу. Ланцюг ціни: `base_price_minor` (фід Теми 2) →
+        динамічне ціноутворення Price Decay (Тема 1) → `unit_price_minor`
+        (цей виклик).
       x-agreement-status: pending
       requestBody:
         required: true
@@ -354,6 +399,8 @@ paths:
                     message: Pickup window for this lot has ended.
                     details:
                       pickup_to: '2026-10-10T21:00:00+03:00'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalError'
 
@@ -413,6 +460,8 @@ paths:
                 message: Order not found.
                 details:
                   order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
         '500':
           $ref: '#/components/responses/InternalError'
 
@@ -472,6 +521,24 @@ components:
             message: Lot not found.
             details:
               lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+    TooManyRequests:
+      description: Перевищено ліміт 100 запитів за хвилину на ключ.
+      headers:
+        Retry-After:
+          description: Через скільки секунд можна повторити запит.
+          schema:
+            type: integer
+            minimum: 1
+          example: 23
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: RATE_LIMITED
+            message: Rate limit exceeded.
+            details:
+              retry_after_seconds: 23
     InternalError:
       description: Непередбачена помилка на боці B2B. Запит можна повторити пізніше.
       content:
@@ -500,6 +567,7 @@ components:
             - ORDER_ID_CONFLICT
             - CURRENCY_MISMATCH
             - PICKUP_WINDOW_CLOSED
+            - RATE_LIMITED
             - INTERNAL_ERROR
         message:
           type: string
@@ -611,6 +679,14 @@ components:
         description:
           type: [string, 'null']
           maxLength: 1000
+        category:
+          type: [string, 'null']
+          maxLength: 100
+          description: |
+            [ДО УЗГОДЖЕННЯ з Темою 1] Назва категорії позиції меню, з якої створено лот.
+            Категорії кожен заклад називає сам, тому назви в різних закладів можуть
+            відрізнятися. `null` — для смарт-бандлів і лотів без позиції меню.
+          x-agreement-status: pending
         base_price_minor:
           type: integer
           minimum: 1
@@ -686,7 +762,10 @@ components:
         unit_price_minor:
           type: integer
           minimum: 0
-          description: '[ДО УЗГОДЖЕННЯ з Темою 1] Фінальна ціна за одиницю в копійках після динамічного ціноутворення.'
+          description: |
+            [ДО УЗГОДЖЕННЯ з Темою 1] Ціна за одиницю в копійках після динамічного
+            ціноутворення (Price Decay) на боці Теми 1. Може бути меншою за
+            `base_price_minor` лота.
           x-agreement-status: pending
         currency:
           $ref: '#/components/schemas/Currency'
@@ -771,6 +850,7 @@ components:
             lng: 30.5222
         name: Круасан з маслом
         description: Свіжа випічка сьогоднішнього дня.
+        category: Випічка
         base_price_minor: 4500
         currency: UAH
         quantity: 5
@@ -795,6 +875,7 @@ components:
             lng: 30.5222
         name: Круасан + кава
         description: null
+        category: null
         base_price_minor: 8000
         currency: UAH
         quantity: 3
@@ -823,6 +904,7 @@ components:
             lng: 30.5222
         name: Круасан з маслом
         description: Свіжа випічка сьогоднішнього дня.
+        category: Випічка
         base_price_minor: 4500
         currency: UAH
         quantity: 0
