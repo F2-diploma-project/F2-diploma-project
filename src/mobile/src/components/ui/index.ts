@@ -1,5 +1,6 @@
 export { Banner, type BannerKind } from './Banner';
 export { BottomNav, type NavItem } from './BottomNav';
+export { CameraFab } from './CameraFab';
 export { EmptyState } from './EmptyState';
 export { IconChip } from './IconChip';
 export { LotCard } from './LotCard';

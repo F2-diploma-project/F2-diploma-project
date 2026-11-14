@@ -12,7 +12,6 @@ export default function CashierLots() {
       publishedLotId={published}
       publishedCount={count ? Number(count) : undefined}
       initialTab={tab}
-      onSnap={() => router.push('/snap/camera')}
       onOpenLot={(id) => router.push(`/lot/${id}`)}
     />
   );

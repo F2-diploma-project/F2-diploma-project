@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import type { LotsService, StaffLot, VenueLotStatus } from '../../data/types';
 import { useTheme } from '../../theme';
-import { Icon } from '../../components/icons/Icon';
 import { useBottomNavInset } from '../../components/ui/BottomNav';
 import { Banner, EmptyState, LotCard, ScreenHeader, SegmentTabs, Toast } from '../../components/ui';
 
@@ -19,7 +17,6 @@ export interface LotsScreenProps {
   publishedCount?: number;
   initialTab?: 'active' | 'draft' | 'sold_out';
   onOpenLot?: (lotId: string) => void;
-  onSnap?: () => void;
   onSearch?: () => void;
   /** Відступ знизу під висячу навігацію. */
   bottomInset?: number;
@@ -31,7 +28,7 @@ const EMPTY_TEXT: Record<Tab, [string, string]> = {
   sold_out: ['Розпроданих лотів немає', 'Тут будуть лоти, які вже купили повністю.'],
 };
 
-export function LotsScreen({ service, publishedLotId, publishedCount, initialTab = 'active', onOpenLot, onSnap, onSearch, bottomInset: bottomInsetProp }: LotsScreenProps) {
+export function LotsScreen({ service, publishedLotId, publishedCount, initialTab = 'active', onOpenLot, onSearch, bottomInset: bottomInsetProp }: LotsScreenProps) {
   const navInset = useBottomNavInset();
   const bottomInset = bottomInsetProp ?? navInset;
   const t = useTheme();
@@ -125,24 +122,13 @@ export function LotsScreen({ service, publishedLotId, publishedCount, initialTab
             ) : undefined
           }
           ListEmptyComponent={<View style={styles.emptyWrap}><EmptyState icon="sell" title={EMPTY_TEXT[tab][0]} text={EMPTY_TEXT[tab][1]} /></View>}
-          contentContainerStyle={[styles.list, { paddingHorizontal: t.space.lg, paddingBottom: bottomInset + 96 }]}
+          contentContainerStyle={[styles.list, { paddingHorizontal: t.space.lg, paddingBottom: bottomInset }]}
         />
       )}
 
       <View testID="lots-footer" pointerEvents="box-none" style={[styles.footer, { bottom: bottomInset, paddingHorizontal: t.space.lg, gap: t.space.sm }]}>
         {toastFor ? <Toast text="Лот опубліковано" actionLabel="Скасувати" onAction={undo} /> : null}
         {bulkToast && publishedCount ? <Toast text={`Опубліковано лотів: ${publishedCount}`} /> : null}
-        <Button
-          mode="contained"
-          onPress={onSnap}
-          accessibilityLabel="Сфотографувати вітрину"
-          icon={({ color }) => <Icon name="photo_camera" color={color} size={20} />}
-          style={{ borderRadius: t.radius.full }}
-          contentStyle={{ height: t.size.buttonHeight }}
-          labelStyle={t.type.labelLarge}
-        >
-          Сфотографувати вітрину
-        </Button>
       </View>
     </SafeAreaView>
   );

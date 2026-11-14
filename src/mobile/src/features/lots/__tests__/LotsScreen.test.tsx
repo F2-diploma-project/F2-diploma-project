@@ -68,11 +68,9 @@ describe('Екран «Лоти» касира', () => {
     await waitFor(() => expect(screen.queryByRole('alert')).toBeNull());
   });
 
-  it('головна дія — «Сфотографувати вітрину»', async () => {
-    const onSnap = jest.fn();
-    const user = userEvent.setup();
-    await show({ onSnap });
-    await user.press(screen.getByRole('button', { name: 'Сфотографувати вітрину' }));
-    expect(onSnap).toHaveBeenCalled();
+  it('широкої кнопки «Сфотографувати вітрину» на екрані немає — вона кругла біля навігації', async () => {
+    await show();
+    await screen.findByText('Круасан з мигдалем');
+    expect(screen.queryByRole('button', { name: 'Сфотографувати вітрину' })).toBeNull();
   });
 });

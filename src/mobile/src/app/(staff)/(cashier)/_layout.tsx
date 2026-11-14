@@ -1,5 +1,5 @@
 import { Tabs, usePathname, useRouter } from 'expo-router';
-import { BottomNav, type NavItem } from '../../../components/ui';
+import { BottomNav, CameraFab, type NavItem } from '../../../components/ui';
 
 const ITEMS: NavItem[] = [
   { key: 'lots', label: 'Лоти', icon: 'sell' },
@@ -11,7 +11,14 @@ function CashierTabBar() {
   const pathname = usePathname();
   const router = useRouter();
   const active = ITEMS.find((i) => pathname.startsWith(`/${i.key}`))?.key ?? 'lots';
-  return <BottomNav items={ITEMS} active={active} onPress={(key) => router.navigate(`/${key}` as '/lots')} />;
+  return (
+    <BottomNav
+      items={ITEMS}
+      active={active}
+      onPress={(key) => router.navigate(`/${key}` as '/lots')}
+      accessory={active === 'lots' ? <CameraFab onPress={() => router.push('/snap/camera')} /> : null}
+    />
+  );
 }
 
 /** Екрани касира з висячою нижньою навігацією. */
