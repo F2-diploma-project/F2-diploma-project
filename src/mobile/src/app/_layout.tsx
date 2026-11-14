@@ -1,6 +1,7 @@
 import { Onest_400Regular, Onest_500Medium, Onest_600SemiBold, useFonts } from '@expo-google-fonts/onest';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { AuthProvider } from '../data/auth';
 import { ThemeProvider, useTheme } from '../theme';
 
 function Shell() {
@@ -18,7 +19,9 @@ export default function RootLayout() {
   if (!loaded) return null;
   return (
     <ThemeProvider>
-      <Shell />
+      <AuthProvider>
+        <Shell />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

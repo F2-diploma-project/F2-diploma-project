@@ -1,6 +1,7 @@
 import { Redirect } from 'expo-router';
+import { useAuth } from '../data/auth';
 
 export default function Index() {
-  // Екрани адміністратора — наступним кроком; поки обидві ролі бачать лоти.
-  return <Redirect href="/lots" />;
+  const { session } = useAuth();
+  return <Redirect href={session ? '/lots' : '/login'} />;
 }
