@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { LotsService, StaffLot, VenueLotStatus } from '../../data/types';
 import { useTheme } from '../../theme';
 import { Icon } from '../../components/icons/Icon';
+import { useBottomNavInset } from '../../components/ui/BottomNav';
 import { Banner, EmptyState, LotCard, ScreenHeader, SegmentTabs, Toast } from '../../components/ui';
 
 type Tab = Extract<VenueLotStatus, 'active' | 'draft' | 'sold_out'>;
@@ -30,7 +31,9 @@ const EMPTY_TEXT: Record<Tab, [string, string]> = {
   sold_out: ['Розпроданих лотів немає', 'Тут будуть лоти, які вже купили повністю.'],
 };
 
-export function LotsScreen({ service, publishedLotId, publishedCount, initialTab = 'active', onOpenLot, onSnap, onSearch, bottomInset = 108 }: LotsScreenProps) {
+export function LotsScreen({ service, publishedLotId, publishedCount, initialTab = 'active', onOpenLot, onSnap, onSearch, bottomInset: bottomInsetProp }: LotsScreenProps) {
+  const navInset = useBottomNavInset();
+  const bottomInset = bottomInsetProp ?? navInset;
   const t = useTheme();
   const c = t.colors;
   const [tab, setTab] = useState<Tab>(initialTab);
@@ -126,7 +129,7 @@ export function LotsScreen({ service, publishedLotId, publishedCount, initialTab
         />
       )}
 
-      <View pointerEvents="box-none" style={[styles.footer, { bottom: bottomInset, paddingHorizontal: t.space.lg, gap: t.space.sm }]}>
+      <View testID="lots-footer" pointerEvents="box-none" style={[styles.footer, { bottom: bottomInset, paddingHorizontal: t.space.lg, gap: t.space.sm }]}>
         {toastFor ? <Toast text="Лот опубліковано" actionLabel="Скасувати" onAction={undo} /> : null}
         {bulkToast && publishedCount ? <Toast text={`Опубліковано лотів: ${publishedCount}`} /> : null}
         <Button

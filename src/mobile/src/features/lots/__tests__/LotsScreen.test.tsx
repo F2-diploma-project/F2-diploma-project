@@ -1,4 +1,6 @@
 import { render, screen, userEvent, waitFor } from '@testing-library/react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from '../../../theme';
 import { createMockLotsService, FIXTURE_LOTS } from '../../../data/mockLots';
 import { LotsScreen } from '../LotsScreen';
@@ -15,6 +17,14 @@ describe('Екран «Лоти» касира', () => {
     expect(await screen.findByText('Круасан з мигдалем')).toBeOnTheScreen();
     expect(screen.getByText('Кіш зі шпинатом')).toBeOnTheScreen();
     expect(screen.queryByText('Сирник із родзинками')).toBeNull();
+  });
+
+  it('головна дія стоїть над нижньою навігацією з урахуванням безпечної зони (iPhone)', async () => {
+    const metrics = { frame: { x: 0, y: 0, width: 402, height: 874 }, insets: { top: 62, left: 0, right: 0, bottom: 34 } };
+    await render(<SafeAreaProvider initialMetrics={metrics}><ThemeProvider><LotsScreen service={createMockLotsService({ delayMs: 0 })} /></ThemeProvider></SafeAreaProvider>);
+    await screen.findByText('Круасан з мигдалем');
+    // навігація: 34 + 12 знизу, висота 70; між нею й кнопкою 12
+    expect(StyleSheet.flatten(screen.getByTestId('lots-footer').props.style).bottom).toBe(34 + 12 + 70 + 12);
   });
 
   it('кількість у вкладках', async () => {
