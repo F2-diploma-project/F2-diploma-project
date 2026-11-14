@@ -16,7 +16,7 @@ function CashierTabBar() {
       items={ITEMS}
       active={active}
       onPress={(key) => router.navigate(`/${key}` as '/lots')}
-      accessory={active === 'lots' ? <CameraFab onPress={() => router.push('/snap/camera')} /> : null}
+      accessory={<CameraFab onPress={() => router.push('/snap/camera')} />}
     />
   );
 }
