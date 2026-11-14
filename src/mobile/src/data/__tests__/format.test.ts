@@ -3,7 +3,7 @@ import type { StaffLot } from '../types';
 
 const lot = (patch: Partial<StaffLot> = {}): StaffLot => ({
   id: 'l', name: 'Круасан', base_price_minor: 4500, regular_price_minor: 9500, quantity: 3, unit: 'pcs',
-  pickup_to: new Date(2026, 10, 15, 21, 0).toISOString(), status: 'active', is_bundle: false, photo: null, ...patch,
+  pickup_to: new Date(2026, 10, 15, 21, 0).toISOString(), status: 'active', is_bundle: false, photo: null, allergens: [], version: 1, ...patch,
 });
 
 describe('формат цін', () => {

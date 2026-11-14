@@ -9,14 +9,26 @@ export interface NavItem {
   icon: IconName;
 }
 
+/** Відступ навігації від низу екрана: безпечна зона (або 12) + 12. */
+function useNavBottom() {
+  const insets = useSafeAreaInsets();
+  return Math.max(insets.bottom, 12) + 12;
+}
+
+/** Скільки місця знизу займає навігація разом із проміжком 12 над нею — для головної дії над навігацією. */
+export function useBottomNavInset() {
+  const t = useTheme();
+  return useNavBottom() + t.size.navHeight + t.space.md;
+}
+
 /** Висяча нижня навігація (варіант B): рівні пункти, активний залитий капсулою. */
 export function BottomNav({ items, active, onPress }: { items: NavItem[]; active: string; onPress: (key: string) => void }) {
   const t = useTheme();
   const c = t.colors;
-  const insets = useSafeAreaInsets();
+  const bottom = useNavBottom();
   const width = items.length <= 3 ? 264 : 388;
   return (
-    <View pointerEvents="box-none" style={[styles.wrap, { bottom: Math.max(insets.bottom, 12) + 12 }]}>
+    <View pointerEvents="box-none" style={[styles.wrap, { bottom }]}>
       <View accessibilityRole="tablist" style={[styles.bar, { width, maxWidth: '100%', backgroundColor: c.card, borderRadius: t.radius.full, padding: 6 }]}>
         {items.map((item) => {
           const on = item.key === active;

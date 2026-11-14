@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import type { LotsService, StaffLot, VenueLotStatus } from '../../data/types';
 import { useTheme } from '../../theme';
 import { Icon } from '../../components/icons/Icon';
+import { useBottomNavInset } from '../../components/ui/BottomNav';
 import { Banner, EmptyState, LotCard, ScreenHeader, SegmentTabs, Toast } from '../../components/ui';
 
 type Tab = Extract<VenueLotStatus, 'active' | 'draft' | 'sold_out'>;
@@ -14,6 +15,10 @@ export interface LotsScreenProps {
   service: LotsService;
   /** Лот, щойно опублікований на іншому екрані: показуємо сповіщення зі «Скасувати». */
   publishedLotId?: string;
+  /** Скільки лотів щойно опубліковано разом (без скасування). */
+  publishedCount?: number;
+  initialTab?: 'active' | 'draft' | 'sold_out';
+  onOpenLot?: (lotId: string) => void;
   onSnap?: () => void;
   onSearch?: () => void;
   /** Відступ знизу під висячу навігацію. */
@@ -26,13 +31,16 @@ const EMPTY_TEXT: Record<Tab, [string, string]> = {
   sold_out: ['Розпроданих лотів немає', 'Тут будуть лоти, які вже купили повністю.'],
 };
 
-export function LotsScreen({ service, publishedLotId, onSnap, onSearch, bottomInset = 108 }: LotsScreenProps) {
+export function LotsScreen({ service, publishedLotId, publishedCount, initialTab = 'active', onOpenLot, onSnap, onSearch, bottomInset: bottomInsetProp }: LotsScreenProps) {
+  const navInset = useBottomNavInset();
+  const bottomInset = bottomInsetProp ?? navInset;
   const t = useTheme();
   const c = t.colors;
-  const [tab, setTab] = useState<Tab>('active');
+  const [tab, setTab] = useState<Tab>(initialTab);
   const [load, setLoad] = useState<Load>({ state: 'loading' });
   const [counts, setCounts] = useState<Record<VenueLotStatus, number> | null>(null);
   const [toastFor, setToastFor] = useState<string | undefined>(publishedLotId);
+  const [bulkToast, setBulkToast] = useState(Boolean(publishedCount));
 
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -64,10 +72,13 @@ export function LotsScreen({ service, publishedLotId, onSnap, onSearch, bottomIn
   };
 
   useEffect(() => {
-    if (!toastFor) return;
-    const timer = setTimeout(() => setToastFor(undefined), 5000);
+    if (!toastFor && !bulkToast) return;
+    const timer = setTimeout(() => {
+      setToastFor(undefined);
+      setBulkToast(false);
+    }, 5000);
     return () => clearTimeout(timer);
-  }, [toastFor]);
+  }, [toastFor, bulkToast]);
 
   const undo = async () => {
     if (!toastFor) return;
@@ -104,7 +115,7 @@ export function LotsScreen({ service, publishedLotId, onSnap, onSearch, bottomIn
         <FlatList
           data={load.lots}
           keyExtractor={(l) => l.id}
-          renderItem={({ item }) => <LotCard lot={item} />}
+          renderItem={({ item }) => <LotCard lot={item} onPress={item.status === 'draft' && onOpenLot ? () => onOpenLot(item.id) : undefined} />}
           ItemSeparatorComponent={() => <View style={{ height: t.space.sm }} />}
           ListHeaderComponent={
             tab === 'draft' && load.lots.length > 0 ? (
@@ -118,8 +129,9 @@ export function LotsScreen({ service, publishedLotId, onSnap, onSearch, bottomIn
         />
       )}
 
-      <View pointerEvents="box-none" style={[styles.footer, { bottom: bottomInset, paddingHorizontal: t.space.lg, gap: t.space.sm }]}>
+      <View testID="lots-footer" pointerEvents="box-none" style={[styles.footer, { bottom: bottomInset, paddingHorizontal: t.space.lg, gap: t.space.sm }]}>
         {toastFor ? <Toast text="Лот опубліковано" actionLabel="Скасувати" onAction={undo} /> : null}
+        {bulkToast && publishedCount ? <Toast text={`Опубліковано лотів: ${publishedCount}`} /> : null}
         <Button
           mode="contained"
           onPress={onSnap}
