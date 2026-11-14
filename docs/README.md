@@ -11,7 +11,7 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | [`0_intro.md`](./0_intro.md) | Вступ (науковий апарат: актуальність, об'єкт, предмет, мета, завдання) | Заповнено |
 | [`1_analysis.md`](./1_analysis.md) | Розділ 1. Аналіз предметної області та постановка задачі дослідження | На рев'ю |
 | [`srs.md`](./srs.md) | Специфікація вимог до ПЗ (SRS, ISO/IEC/IEEE 29148) | Заповнено |
-| [`2_design.md`](./2_design.md) | Розділ 2. Архітектурне проєктування (C4 Model рівні 1–3; UML і схема даних — заплановано) | У роботі |
+| [`2_design.md`](./2_design.md) | Розділ 2. Архітектурне проєктування (C4 Model, ADR, ER-діаграма, специфікація API, алгоритми, інтеграційний аудит) | Done |
 | [`adr/`](./adr/) | Architecture Decision Records | ADR-001 затверджено |
 | [`3_implementation.md`](./3_implementation.md) | Розділ 3. Реалізація (інтерфейс, тестування, деплой) | Заплановано |
 | [`4_conclusions.md`](./4_conclusions.md) | Висновки | Заплановано |
@@ -39,6 +39,9 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 
 - [`srs.md`](./srs.md) — специфікація вимог з унікальними ідентифікаторами (SRS-FUN, SRS-NFR) і критеріями верифікації;
 - [`2_design.md`](./2_design.md) — C4 Model: [Context](./2_design.md#diagram-level1), [Container](./2_design.md#diagram-level2), [Component](./2_design.md#diagram-level3);
+- [`2_design.md`](./2_design.md#24-проєктування-та-документування-моделей-даних) — підрозділи 2.4–2.7: модель даних, контракти API, алгоритми, інтеграційний аудит;
+- [`api/openapi.yaml`](./api/openapi.yaml) — специфікація OpenAPI 3.1 для B2B API;
+- [`../contracts/b2c-contract.yaml`](../contracts/b2c-contract.yaml) — контракт обміну з B2C-модулем;
 - [`adr/0001-choice-of-technology.md`](./adr/0001-choice-of-technology.md) — ADR-001: вибір черги фонових задач.
 
 ## Календарний план

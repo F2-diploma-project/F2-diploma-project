@@ -1,0 +1,846 @@
+openapi: 3.1.0
+info:
+  title: B2B ↔ B2C Marketplace Contract
+  version: 0.1.0
+  summary: Контракт між B2B-системою закладів (Тема 2) і B2C-платформою (Тема 1).
+  description: |
+    REST-контракт між двома незалежними системами одного маркетплейсу.
+
+    - **B2B-система (Тема 2)** — заклади харчування публікують лоти, отримують
+      підтвердження покупок, видають QR-коди.
+    - **B2C-система (Тема 1)** — динамічне ціноутворення, бронювання, оплата,
+      мобільний застосунок клієнта.
+
+    Усі виклики в цьому документі робить бекенд Теми 1 до бекенду Теми 2.
+
+    | Крок розділу 9 | Виклик |
+    | --- | --- |
+    | 1. Публікація лота | `GET /v1/lots/feed` — Тема 1 періодично забирає фід |
+    | 2. Динамічне ціноутворення | Поза контрактом (лише Тема 1) |
+    | 3. Покупка / автовикуп | Поза контрактом (лише Тема 1); перед покупкою можна перевірити залишок через `GET /v1/lots/{lotId}` |
+    | 4. Підтвердження покупки | `POST /v1/orders` |
+    | 5. Видача QR клієнту | `GET /v1/orders/{orderId}/qr` |
+    | Демо / docker-compose | `GET /v1/health` |
+
+    **Позначка «ДО УЗГОДЖЕННЯ».** Елементи з `x-agreement-status: pending`
+    і текстом «[ДО УЗГОДЖЕННЯ з Темою 1]» запропоновані стороною Теми 2 і
+    мають бути підтверджені Темою 1. Список питань ведеться окремо.
+
+    **Загальні правила.**
+    - Гроші — цілі числа в копійках (`*_minor`), валюта `UAH`.
+    - Час — ISO 8601 з часовою зоною (`2026-10-10T18:30:00+03:00`).
+    - Ідентифікатори — UUID.
+    - Помилки — єдиний формат `Error` (`code`, `message`, `details`).
+    - Автентифікація — API-ключ у заголовку `X-API-Key`. Для кожного
+      напрямку викликів — окремий ключ. Зараз усі виклики йдуть у напрямку
+      Тема 1 → Тема 2, тому використовується один ключ, виданий Темою 2
+      для Теми 1. Ключі зберігаються лише в `.env` кожної системи.
+  x-agreement-status: pending
+servers:
+  - url: '{b2bBaseUrl}'
+    description: Бекенд Теми 2 (B2B). Адреса береться зі змінної середовища B2B_BASE_URL у системі Теми 1.
+    variables:
+      b2bBaseUrl:
+        default: http://localhost:3000
+        description: Базова адреса B2B API.
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Lots
+    description: Лоти закладів для показу в B2C-застосунку.
+  - name: Orders
+    description: Підтвердження покупок і видача QR-кодів.
+  - name: System
+    description: Службові виклики.
+
+paths:
+  /v1/health:
+    get:
+      tags: [System]
+      operationId: getHealth
+      summary: Перевірка доступності B2B-системи
+      description: |
+        [ДО УЗГОДЖЕННЯ з Темою 1] Використовується спільним docker-compose
+        і інтеграційним тестом, щоб дочекатися запуску B2B-бекенду.
+        Не потребує API-ключа.
+      x-agreement-status: pending
+      security: []
+      responses:
+        '200':
+          description: Система працює.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              example:
+                status: ok
+                version: 0.1.0
+                time: '2026-10-10T18:30:00+03:00'
+        '503':
+          description: Система запущена, але залежність (БД або Redis) недоступна.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Health'
+              example:
+                status: degraded
+                version: 0.1.0
+                time: '2026-10-10T18:30:00+03:00'
+
+  /v1/lots/feed:
+    get:
+      tags: [Lots]
+      operationId: getLotsFeed
+      summary: Фід нових і оновлених лотів (крок 1)
+      description: |
+        [ДО УЗГОДЖЕННЯ з Темою 1] Тема 1 сама періодично (рекомендовано раз на
+        30 секунд) забирає лоти, створені або змінені після `updated_since`.
+
+        У фід потрапляють також лоти, що стали недоступними (`sold_out`,
+        `withdrawn`), щоб Тема 1 прибрала їх із показу.
+
+        Як читати фід:
+        1. Перший запит — без `updated_since` (усі активні лоти).
+        2. Якщо у відповіді є `next_cursor` — повторити запит з `cursor`.
+        3. Коли `next_cursor` = null — зберегти `server_time` і наступного разу
+           передати його як `updated_since`.
+
+        Базова ціна (`base_price_minor`) — вхідні дані для ціноутворення Теми 1;
+        B2B її не змінює після публікації без оновлення лота у фіді.
+      x-agreement-status: pending
+      parameters:
+        - name: updated_since
+          in: query
+          required: false
+          description: Повернути лоти, змінені строго після цього моменту.
+          schema:
+            type: string
+            format: date-time
+          example: '2026-10-10T18:00:00+03:00'
+        - name: cursor
+          in: query
+          required: false
+          description: Непрозорий курсор наступної сторінки з попередньої відповіді.
+          schema:
+            type: string
+          example: eyJvZmZzZXQiOjEwMH0
+        - name: limit
+          in: query
+          required: false
+          description: Кількість лотів на сторінці.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+            default: 100
+      responses:
+        '200':
+          description: Сторінка фіду.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LotsFeedPage'
+              examples:
+                withLots:
+                  summary: Звичайний лот і смарт-бандл
+                  value:
+                    items:
+                      - id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+                        venue:
+                          id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+                          name: Кав'ярня «Ранок»
+                          address: Київ, вул. Хрещатик, 10
+                          location:
+                            lat: 50.4475
+                            lng: 30.5222
+                        name: Круасан з маслом
+                        description: Свіжа випічка сьогоднішнього дня.
+                        base_price_minor: 4500
+                        currency: UAH
+                        quantity: 5
+                        pickup_from: '2026-10-10T19:00:00+03:00'
+                        pickup_to: '2026-10-10T21:00:00+03:00'
+                        allergens: [gluten, milk, eggs]
+                        photo_url: https://b2b.example.com/media/lots/3f2b8c1e.jpg
+                        is_bundle: false
+                        bundle_items: []
+                        status: active
+                        updated_at: '2026-10-10T18:20:00+03:00'
+                      - id: 8a7b6c5d-4e3f-4a2b-9c1d-0e9f8a7b6c5d
+                        venue:
+                          id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+                          name: Кав'ярня «Ранок»
+                          address: Київ, вул. Хрещатик, 10
+                          location:
+                            lat: 50.4475
+                            lng: 30.5222
+                        name: Круасан + кава
+                        description: null
+                        base_price_minor: 8000
+                        currency: UAH
+                        quantity: 3
+                        pickup_from: '2026-10-10T19:00:00+03:00'
+                        pickup_to: '2026-10-10T21:00:00+03:00'
+                        allergens: [gluten, milk]
+                        photo_url: null
+                        is_bundle: true
+                        bundle_items:
+                          - name: Круасан
+                            quantity: 1
+                          - name: Американо
+                            quantity: 1
+                        status: active
+                        updated_at: '2026-10-10T18:25:00+03:00'
+                    next_cursor: null
+                    server_time: '2026-10-10T18:30:00+03:00'
+                empty:
+                  summary: Змін немає
+                  value:
+                    items: []
+                    next_cursor: null
+                    server_time: '2026-10-10T18:30:30+03:00'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /v1/lots/{lotId}:
+    get:
+      tags: [Lots]
+      operationId: getLot
+      summary: Актуальний стан і залишок одного лота
+      description: |
+        [ДО УЗГОДЖЕННЯ з Темою 1] Тема 1 може викликати перед бронюванням або
+        автовикупом (крок 3), щоб переконатися, що лот активний і залишку
+        достатньо — наприклад, якщо касир щойно списав товар у POS.
+        Результат не резервує товар: резервування лишається на боці Теми 1,
+        а остаточна перевірка залишку відбувається в `POST /v1/orders`.
+      x-agreement-status: pending
+      parameters:
+        - $ref: '#/components/parameters/LotId'
+      responses:
+        '200':
+          description: Лот знайдено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Lot'
+              examples:
+                active:
+                  $ref: '#/components/examples/LotCroissants'
+                bundle:
+                  $ref: '#/components/examples/LotBundle'
+                soldOut:
+                  $ref: '#/components/examples/LotSoldOut'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/LotNotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /v1/orders:
+    post:
+      tags: [Orders]
+      operationId: confirmOrder
+      summary: Підтвердження покупки «лот викуплено» (крок 4)
+      description: |
+        Тема 1 повідомляє, що клієнт оплатив (або автовикуп спрацював) певну
+        кількість одиниць лота. Тема 2 зменшує залишок і генерує код
+        підтвердження та QR.
+
+        **Повторні запити (ідемпотентність).** `order_id` — номер замовлення
+        Теми 1. Повторний запит з тим самим `order_id` і тими самими даними
+        не зменшує залишок удруге і повертає `200` з тим самим результатом.
+        Той самий `order_id` з іншими даними — `409 ORDER_ID_CONFLICT`.
+
+        [ДО УЗГОДЖЕННЯ з Темою 1] Купівля за кількістю (`quantity`);
+        смарт-бандл купується як один лот, `quantity` — кількість бандлів.
+        Фінальна ціна (`unit_price_minor`) потрібна Темі 2 для аналітики
+        відновленого доходу.
+      x-agreement-status: pending
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderConfirmationRequest'
+            example:
+              order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+              lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+              quantity: 2
+              unit_price_minor: 2700
+              currency: UAH
+              purchased_at: '2026-10-10T19:05:12+03:00'
+      responses:
+        '201':
+          description: Покупку підтверджено вперше, залишок зменшено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderConfirmation'
+              examples:
+                confirmed:
+                  $ref: '#/components/examples/OrderConfirmed'
+        '200':
+          description: Повторний запит з тим самим `order_id` — повертається попередній результат, залишок не змінюється.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderConfirmation'
+              examples:
+                confirmed:
+                  $ref: '#/components/examples/OrderConfirmed'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/LotNotFound'
+        '409':
+          description: Покупку неможливо підтвердити через стан лота або конфлікт номера замовлення.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                insufficientQuantity:
+                  summary: Залишку не вистачає
+                  value:
+                    code: INSUFFICIENT_QUANTITY
+                    message: Requested quantity exceeds available quantity.
+                    details:
+                      lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+                      requested: 2
+                      available: 1
+                lotNotAvailable:
+                  summary: Лот знято з продажу або розпродано
+                  value:
+                    code: LOT_NOT_AVAILABLE
+                    message: Lot is not active.
+                    details:
+                      lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+                      status: withdrawn
+                orderIdConflict:
+                  summary: Той самий order_id з іншими даними
+                  value:
+                    code: ORDER_ID_CONFLICT
+                    message: Order already exists with different data.
+                    details:
+                      order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        '422':
+          description: Дані коректні за форматом, але суперечать правилам (наприклад, неправильна валюта або час видачі минув).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                currencyMismatch:
+                  summary: Валюта не збігається з валютою лота
+                  value:
+                    code: CURRENCY_MISMATCH
+                    message: Currency must match lot currency.
+                    details:
+                      expected: UAH
+                      received: EUR
+                pickupWindowClosed:
+                  summary: Час видачі вже минув
+                  value:
+                    code: PICKUP_WINDOW_CLOSED
+                    message: Pickup window for this lot has ended.
+                    details:
+                      pickup_to: '2026-10-10T21:00:00+03:00'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /v1/orders/{orderId}/qr:
+    get:
+      tags: [Orders]
+      operationId: getOrderQr
+      summary: QR-код і текстовий код підтвердження за номером замовлення (крок 5)
+      description: |
+        Тема 2 повертає готовий QR (картинка PNG у base64) і текстовий код,
+        який касир може перевірити вручну. Застосунок Теми 1 лише показує їх
+        клієнту. Можна викликати повторно — повертається той самий код.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          description: Номер замовлення Теми 1 (той самий `order_id`, що в `POST /v1/orders`).
+          schema:
+            type: string
+            format: uuid
+          example: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+      responses:
+        '200':
+          description: QR знайдено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderQr'
+              example:
+                order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+                confirmation_code: K7Q-4M2
+                status: awaiting_pickup
+                qr_image:
+                  mime_type: image/png
+                  data_base64: iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==
+                pickup_from: '2026-10-10T19:00:00+03:00'
+                pickup_to: '2026-10-10T21:00:00+03:00'
+                venue:
+                  id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+                  name: Кав'ярня «Ранок»
+                  address: Київ, вул. Хрещатик, 10
+                  location:
+                    lat: 50.4475
+                    lng: 30.5222
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Замовлення з таким номером не підтверджувалось через `POST /v1/orders`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: ORDER_NOT_FOUND
+                message: Order not found.
+                details:
+                  order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: |
+        Ключ, який Тема 2 видає Темі 1 для викликів Тема 1 → Тема 2.
+        Якщо з'явиться виклик у зворотному напрямку, для нього буде окремий
+        ключ, виданий Темою 1. Ключі зберігаються лише в `.env`.
+
+  parameters:
+    LotId:
+      name: lotId
+      in: path
+      required: true
+      description: Ідентифікатор лота в B2B-системі.
+      schema:
+        type: string
+        format: uuid
+      example: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+
+  responses:
+    BadRequest:
+      description: Невірний формат запиту (наприклад, не UUID або неправильна дата).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: VALIDATION_ERROR
+            message: Request validation failed.
+            details:
+              fields:
+                - field: quantity
+                  issue: must be an integer >= 1
+    Unauthorized:
+      description: Заголовок `X-API-Key` відсутній або ключ недійсний.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: UNAUTHORIZED
+            message: Missing or invalid API key.
+    LotNotFound:
+      description: Лот з таким ідентифікатором не існує.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: LOT_NOT_FOUND
+            message: Lot not found.
+            details:
+              lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+    InternalError:
+      description: Непередбачена помилка на боці B2B. Запит можна повторити пізніше.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            code: INTERNAL_ERROR
+            message: Unexpected server error.
+
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          description: Машинний код помилки.
+          enum:
+            - VALIDATION_ERROR
+            - UNAUTHORIZED
+            - LOT_NOT_FOUND
+            - ORDER_NOT_FOUND
+            - INSUFFICIENT_QUANTITY
+            - LOT_NOT_AVAILABLE
+            - ORDER_ID_CONFLICT
+            - CURRENCY_MISMATCH
+            - PICKUP_WINDOW_CLOSED
+            - INTERNAL_ERROR
+        message:
+          type: string
+          description: Пояснення для розробника (англійською), не для показу клієнту.
+        details:
+          type: object
+          description: Додаткові дані про помилку.
+          additionalProperties: true
+
+    Health:
+      type: object
+      required: [status, version, time]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+        version:
+          type: string
+        time:
+          type: string
+          format: date-time
+
+    Currency:
+      type: string
+      enum: [UAH]
+      description: Код валюти ISO 4217.
+
+    Venue:
+      type: object
+      description: '[ДО УЗГОДЖЕННЯ з Темою 1] Заклад, що продає лот.'
+      x-agreement-status: pending
+      required: [id, name, address, location]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          maxLength: 200
+        address:
+          type: string
+          maxLength: 300
+        location:
+          $ref: '#/components/schemas/GeoPoint'
+
+    GeoPoint:
+      type: object
+      required: [lat, lng]
+      properties:
+        lat:
+          type: number
+          minimum: -90
+          maximum: 90
+        lng:
+          type: number
+          minimum: -180
+          maximum: 180
+
+    BundleItem:
+      type: object
+      description: '[ДО УЗГОДЖЕННЯ з Темою 1] Позиція всередині смарт-бандла.'
+      x-agreement-status: pending
+      required: [name, quantity]
+      properties:
+        name:
+          type: string
+          maxLength: 200
+        quantity:
+          type: integer
+          minimum: 1
+
+    LotStatus:
+      type: string
+      description: |
+        - `active` — доступний для покупки.
+        - `sold_out` — залишок 0.
+        - `withdrawn` — заклад зняв лот з продажу (вручну або через списання в POS).
+      enum: [active, sold_out, withdrawn]
+
+    Lot:
+      type: object
+      description: |
+        [ДО УЗГОДЖЕННЯ з Темою 1] Лот закладу. Смарт-бандл — теж один лот
+        (`is_bundle: true`), склад описано в `bundle_items`; `quantity` —
+        кількість бандлів.
+      x-agreement-status: pending
+      required:
+        - id
+        - venue
+        - name
+        - base_price_minor
+        - currency
+        - quantity
+        - pickup_from
+        - pickup_to
+        - allergens
+        - is_bundle
+        - status
+        - updated_at
+      properties:
+        id:
+          type: string
+          format: uuid
+        venue:
+          $ref: '#/components/schemas/Venue'
+        name:
+          type: string
+          maxLength: 200
+        description:
+          type: [string, 'null']
+          maxLength: 1000
+        base_price_minor:
+          type: integer
+          minimum: 1
+          description: Базова ціна за одиницю в копійках. Тема 1 рахує від неї динамічну ціну.
+        currency:
+          $ref: '#/components/schemas/Currency'
+        quantity:
+          type: integer
+          minimum: 0
+          description: Доступний залишок одиниць на момент `updated_at`.
+        pickup_from:
+          type: string
+          format: date-time
+          description: Початок часу, коли клієнт може забрати замовлення.
+        pickup_to:
+          type: string
+          format: date-time
+          description: Кінець часу видачі.
+        allergens:
+          type: array
+          description: Алергени для маркування (порожній масив — алергенів не виявлено).
+          items:
+            type: string
+        photo_url:
+          type: [string, 'null']
+          format: uri
+          description: Публічне посилання на фото лота.
+        is_bundle:
+          type: boolean
+        bundle_items:
+          type: array
+          description: Склад бандла; порожній, якщо `is_bundle` = false.
+          items:
+            $ref: '#/components/schemas/BundleItem'
+        status:
+          $ref: '#/components/schemas/LotStatus'
+        updated_at:
+          type: string
+          format: date-time
+
+    LotsFeedPage:
+      type: object
+      required: [items, next_cursor, server_time]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Lot'
+        next_cursor:
+          type: [string, 'null']
+          description: Курсор наступної сторінки; null — це остання сторінка.
+        server_time:
+          type: string
+          format: date-time
+          description: Час сервера B2B; передати як `updated_since` у наступному опитуванні.
+
+    OrderConfirmationRequest:
+      type: object
+      required: [order_id, lot_id, quantity, unit_price_minor, currency, purchased_at]
+      properties:
+        order_id:
+          type: string
+          format: uuid
+          description: Номер замовлення в системі Теми 1; ключ ідемпотентності.
+        lot_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          minimum: 1
+          description: '[ДО УЗГОДЖЕННЯ з Темою 1] Кількість одиниць (або бандлів).'
+          x-agreement-status: pending
+        unit_price_minor:
+          type: integer
+          minimum: 0
+          description: '[ДО УЗГОДЖЕННЯ з Темою 1] Фінальна ціна за одиницю в копійках після динамічного ціноутворення.'
+          x-agreement-status: pending
+        currency:
+          $ref: '#/components/schemas/Currency'
+        purchased_at:
+          type: string
+          format: date-time
+          description: Момент оплати або автовикупу в системі Теми 1.
+
+    OrderConfirmation:
+      type: object
+      required: [order_id, lot_id, quantity, status, confirmation_code, remaining_quantity, qr_path]
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        lot_id:
+          type: string
+          format: uuid
+        quantity:
+          type: integer
+          minimum: 1
+        status:
+          type: string
+          enum: [confirmed]
+        confirmation_code:
+          type: string
+          description: Короткий текстовий код для перевірки касиром.
+        remaining_quantity:
+          type: integer
+          minimum: 0
+          description: Залишок лота після цієї покупки.
+        qr_path:
+          type: string
+          description: Шлях, за яким отримати QR (крок 5).
+
+    OrderQr:
+      type: object
+      required: [order_id, confirmation_code, status, qr_image, pickup_from, pickup_to, venue]
+      properties:
+        order_id:
+          type: string
+          format: uuid
+        confirmation_code:
+          type: string
+          description: Текстовий код, який закодовано в QR; касир може ввести його вручну.
+        status:
+          type: string
+          description: |
+            - `awaiting_pickup` — клієнт ще не забрав замовлення.
+            - `picked_up` — касир підтвердив видачу.
+          enum: [awaiting_pickup, picked_up]
+        qr_image:
+          type: object
+          required: [mime_type, data_base64]
+          properties:
+            mime_type:
+              type: string
+              enum: [image/png]
+            data_base64:
+              type: string
+              contentEncoding: base64
+        pickup_from:
+          type: string
+          format: date-time
+        pickup_to:
+          type: string
+          format: date-time
+        venue:
+          $ref: '#/components/schemas/Venue'
+
+  examples:
+    LotCroissants:
+      summary: Звичайний лот
+      value:
+        id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+        venue:
+          id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+          name: Кав'ярня «Ранок»
+          address: Київ, вул. Хрещатик, 10
+          location:
+            lat: 50.4475
+            lng: 30.5222
+        name: Круасан з маслом
+        description: Свіжа випічка сьогоднішнього дня.
+        base_price_minor: 4500
+        currency: UAH
+        quantity: 5
+        pickup_from: '2026-10-10T19:00:00+03:00'
+        pickup_to: '2026-10-10T21:00:00+03:00'
+        allergens: [gluten, milk, eggs]
+        photo_url: https://b2b.example.com/media/lots/3f2b8c1e.jpg
+        is_bundle: false
+        bundle_items: []
+        status: active
+        updated_at: '2026-10-10T18:20:00+03:00'
+    LotBundle:
+      summary: Смарт-бандл
+      value:
+        id: 8a7b6c5d-4e3f-4a2b-9c1d-0e9f8a7b6c5d
+        venue:
+          id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+          name: Кав'ярня «Ранок»
+          address: Київ, вул. Хрещатик, 10
+          location:
+            lat: 50.4475
+            lng: 30.5222
+        name: Круасан + кава
+        description: null
+        base_price_minor: 8000
+        currency: UAH
+        quantity: 3
+        pickup_from: '2026-10-10T19:00:00+03:00'
+        pickup_to: '2026-10-10T21:00:00+03:00'
+        allergens: [gluten, milk]
+        photo_url: null
+        is_bundle: true
+        bundle_items:
+          - name: Круасан
+            quantity: 1
+          - name: Американо
+            quantity: 1
+        status: active
+        updated_at: '2026-10-10T18:25:00+03:00'
+    LotSoldOut:
+      summary: Розпроданий лот
+      value:
+        id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+        venue:
+          id: 0b1c2d3e-4f5a-4b6c-8d7e-9f0a1b2c3d4e
+          name: Кав'ярня «Ранок»
+          address: Київ, вул. Хрещатик, 10
+          location:
+            lat: 50.4475
+            lng: 30.5222
+        name: Круасан з маслом
+        description: Свіжа випічка сьогоднішнього дня.
+        base_price_minor: 4500
+        currency: UAH
+        quantity: 0
+        pickup_from: '2026-10-10T19:00:00+03:00'
+        pickup_to: '2026-10-10T21:00:00+03:00'
+        allergens: [gluten, milk, eggs]
+        photo_url: https://b2b.example.com/media/lots/3f2b8c1e.jpg
+        is_bundle: false
+        bundle_items: []
+        status: sold_out
+        updated_at: '2026-10-10T19:40:00+03:00'
+    OrderConfirmed:
+      summary: Підтверджена покупка
+      value:
+        order_id: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+        lot_id: 3f2b8c1e-9a4d-4e7b-b1c2-5d6e7f8a9b0c
+        quantity: 2
+        status: confirmed
+        confirmation_code: K7Q-4M2
+        remaining_quantity: 3
+        qr_path: /v1/orders/7c9e6679-7425-40de-944b-e07fc1f90ae7/qr
