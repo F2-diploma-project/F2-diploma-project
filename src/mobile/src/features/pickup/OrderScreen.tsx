@@ -150,7 +150,7 @@ export function OrderScreen({ service, pickupRef, onIssued, onClose, onScan, onM
       ];
     }
     const deadline =
-      order.status === 'awaiting_pickup' && late
+      late
         ? `Треба було забрати до ${until}`
         : sameDay(new Date(order.pickup_to), now)
           ? `Забрати сьогодні до ${until}`

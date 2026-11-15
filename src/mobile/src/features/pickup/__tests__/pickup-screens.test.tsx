@@ -136,6 +136,14 @@ describe('Замовлення', () => {
     expect(h.onScan).toHaveBeenCalled();
   });
 
+  it('видане після терміну: строк показано як минулий, а не «Забрати до»', async () => {
+    const svc = service();
+    await svc.redeem({ confirmation_code: FIXTURE_ORDERS.late.code }, { allowLate: true });
+    await wrap(<OrderScreen service={svc} pickupRef={{ confirmation_code: FIXTURE_ORDERS.late.code }} {...handlers()} />);
+    expect(await screen.findByText(/^Це замовлення вже видано/)).toBeOnTheScreen();
+    expect(screen.getByText(/^Треба було забрати до \d\d:\d\d$/)).toBeOnTheScreen();
+  });
+
   it('не знайдено: пояснення, «Сканувати ще раз» і «Ввести код вручну»', async () => {
     const h = handlers();
     const user = userEvent.setup();
