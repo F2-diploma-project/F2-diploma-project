@@ -3,11 +3,10 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from 're
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, type IconName } from '../../components/icons/Icon';
-import { Banner, EmptyState } from '../../components/ui';
+import { Banner, EmptyState, TopBar } from '../../components/ui';
 import { formatPrice, formatTime, imageSource } from '../../data/format';
 import { isLate, PickupError, type OrderPreview, type PickupRef, type PickupService, type Redemption } from '../../data/pickup';
 import { useTheme } from '../../theme';
-import { PickupHeader } from './PickupHeader';
 
 type Load =
   | { state: 'loading' }
@@ -185,7 +184,7 @@ export function OrderScreen({ service, pickupRef, onIssued, onClose, onScan, onM
 
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.screen }]}>
-      <PickupHeader title="Замовлення" icon="close" label="Закрити" onPress={onClose} />
+      <TopBar title="Замовлення" onClose={onClose} />
       <View style={styles.flex}>{body}</View>
       {actions.length ? <View style={{ padding: t.space.lg, gap: t.space.md }}>{actions}</View> : null}
     </SafeAreaView>

@@ -3,7 +3,7 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '../../components/icons/Icon';
-import { Banner, IconChip, LotCard } from '../../components/ui';
+import { Banner, IconChip, LotCard, TopBar } from '../../components/ui';
 import { formatDiscount, formatPrice, plural } from '../../data/format';
 import type { BundleSuggestion, RecognitionItem, RecognitionService } from '../../data/recognition';
 import type { LotsService, StaffLot } from '../../data/types';
@@ -169,12 +169,7 @@ export function ResultsScreen({ jobId, recognition, lots, onOpenLot, onSaved, on
 
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.screen }]}>
-      <View style={[styles.row, { paddingHorizontal: t.space.sm, paddingVertical: t.space.sm }]}>
-        <Pressable accessibilityRole="button" accessibilityLabel="Закрити" onPress={onClose} style={styles.close}>
-          <Icon name="close" color={c.onSurface} />
-        </Pressable>
-        <Text accessibilityRole="header" style={[t.type.titleLarge, { color: c.onSurface }]}>Знайдено на фото</Text>
-      </View>
+      <TopBar title="Знайдено на фото" onClose={onClose} />
       {items === null && !error ? (
         <View style={styles.center}><ActivityIndicator color={c.primary} /></View>
       ) : (

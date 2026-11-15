@@ -2,11 +2,10 @@ import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '../../components/icons/Icon';
-import { EmptyState } from '../../components/ui';
+import { EmptyState, TopBar } from '../../components/ui';
 import { formatTime } from '../../data/format';
 import type { Redemption } from '../../data/pickup';
 import { useTheme } from '../../theme';
-import { PickupHeader } from './PickupHeader';
 
 /** Результат видачі; «Сканувати наступне» повертає до сканера. */
 export function IssuedScreen({ redemption, onNext }: { redemption: Redemption; onNext: () => void }) {
@@ -15,7 +14,7 @@ export function IssuedScreen({ redemption, onNext }: { redemption: Redemption; o
   const late = redemption.late ? ' після терміну' : '';
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.screen }]}>
-      <PickupHeader title="Замовлення" icon="close" label="Закрити" onPress={onNext} />
+      <TopBar title="Замовлення" onClose={onNext} />
       <View style={[styles.center, { paddingHorizontal: t.space.lg }]}>
         <EmptyState
           icon="check_circle"
