@@ -7,3 +7,4 @@ export { LotCard } from './LotCard';
 export { ScreenHeader } from './ScreenHeader';
 export { SegmentTabs, type SegmentItem } from './SegmentTabs';
 export { Toast } from './Toast';
+export { TopBar } from './TopBar';

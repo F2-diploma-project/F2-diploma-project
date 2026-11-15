@@ -5,6 +5,7 @@ import { colors } from '../../../theme/tokens';
 import { Banner } from '../Banner';
 import { BottomNav } from '../BottomNav';
 import { CameraFab } from '../CameraFab';
+import { TopBar } from '../TopBar';
 import { EmptyState } from '../EmptyState';
 import { LotCard } from '../LotCard';
 import { SegmentTabs } from '../SegmentTabs';
@@ -62,6 +63,24 @@ describe('BottomNav', () => {
   it('пункти не менші за 48 точок', async () => {
     await wrap(<BottomNav active="lots" onPress={jest.fn()} items={[{ key: 'lots', label: 'Лоти', icon: 'sell' }]} />);
     expect(screen.getByRole('tab', { name: 'Лоти' })).toHaveStyle({ minHeight: 48 });
+  });
+});
+
+describe('TopBar', () => {
+  const labels = () => screen.getByTestId('top-bar').children.map((ch) => (typeof ch === 'string' ? ch : ch.props.accessibilityLabel ?? ch.props.accessibilityRole));
+
+  it('хрестик «Закрити» — праворуч, після заголовка', async () => {
+    const onClose = jest.fn();
+    const user = userEvent.setup();
+    await wrap(<TopBar title="Замовлення" onClose={onClose} />);
+    expect(labels()).toEqual(['header', 'Закрити']);
+    await user.press(screen.getByRole('button', { name: 'Закрити' }));
+    expect(onClose).toHaveBeenCalled();
+  });
+
+  it('стрілка «Назад» — ліворуч, перед заголовком', async () => {
+    await wrap(<TopBar title="Код замовлення" onBack={jest.fn()} />);
+    expect(labels()).toEqual(['Назад', 'header']);
   });
 });
 

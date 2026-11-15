@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '../../components/icons/Icon';
-import { EmptyState } from '../../components/ui';
+import { EmptyState, TopBar } from '../../components/ui';
 import { useTheme } from '../../theme';
 
 /** Пояснення для кодів `error_code` завдання розпізнавання (`docs/api/openapi.yaml`). */
@@ -20,9 +20,7 @@ export function FailedScreen({ code, onRetry, onManual, onClose }: { code: strin
   const c = t.colors;
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.surface }]}>
-      <Pressable accessibilityRole="button" accessibilityLabel="Закрити" onPress={onClose} style={styles.close}>
-        <Icon name="close" color={c.onSurface} />
-      </Pressable>
+      <TopBar title="Фото вітрини" onClose={onClose} />
       <View style={styles.center}>
         <EmptyState icon="no_photography" tone="error" title="Не вдалося розпізнати" text={FAILURE_TEXT[code] ?? DEFAULT_TEXT} />
       </View>
@@ -40,6 +38,5 @@ export function FailedScreen({ code, onRetry, onManual, onClose }: { code: strin
 
 const styles = StyleSheet.create({
   flex: { flex: 1 },
-  close: { width: 48, height: 48, alignItems: 'center', justifyContent: 'center', margin: 8 },
   center: { flex: 1, justifyContent: 'center' },
 });

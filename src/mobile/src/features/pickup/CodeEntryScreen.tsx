@@ -6,7 +6,7 @@ import { Icon } from '../../components/icons/Icon';
 import { plural } from '../../data/format';
 import { CODE_LENGTH, codeLength, isCompleteCode, normalizeCode } from '../../data/pickup';
 import { useTheme } from '../../theme';
-import { PickupHeader } from './PickupHeader';
+import { TopBar } from '../../components/ui';
 
 /** Введення коду з-під QR вручну: пояснення зверху, клітинки коду внизу біля клавіатури, пошук — сам після 6 символів. */
 export function CodeEntryScreen({ onSubmit, onBack }: { onSubmit: (code: string) => void; onBack: () => void }) {
@@ -47,7 +47,7 @@ export function CodeEntryScreen({ onSubmit, onBack }: { onSubmit: (code: string)
 
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.screen }]}>
-      <PickupHeader title="Код замовлення" icon="arrow_back" label="Назад" onPress={onBack} />
+      <TopBar title="Код замовлення" onBack={onBack} />
       <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={{ paddingHorizontal: t.space.lg }}>
           <View style={[styles.info, { backgroundColor: c.card, borderRadius: t.radius.card, padding: t.space.md, gap: t.space.md }]}>

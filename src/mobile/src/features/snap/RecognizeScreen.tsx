@@ -3,6 +3,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, ProgressBar } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon, type IconName } from '../../components/icons/Icon';
+import { TopBar } from '../../components/ui';
 import { imageSource } from '../../data/format';
 import { isFinished, type RecognitionErrorCode, type RecognitionJobStatus, type RecognitionService } from '../../data/recognition';
 import { useTheme } from '../../theme';
@@ -58,8 +59,8 @@ export function RecognizeScreen({ jobId, service, pollMs = 1500, onResult, onFai
 
   return (
     <SafeAreaView style={[styles.flex, { backgroundColor: c.screen }]}>
-      <ScrollView contentContainerStyle={{ padding: t.space.lg, gap: t.space.md }}>
-        <Text accessibilityRole="header" style={[t.type.titleLarge, { color: c.onSurface }]}>Фото вітрини</Text>
+      <TopBar title="Фото вітрини" onClose={onBack} />
+      <ScrollView contentContainerStyle={{ paddingHorizontal: t.space.lg, paddingBottom: t.space.lg, gap: t.space.md }}>
         <View style={[styles.photo, { borderRadius: t.radius.photo, backgroundColor: c.surfaceVariant }]}>
           {photo ? <Image source={imageSource(photo)} style={StyleSheet.absoluteFill} resizeMode="cover" /> : null}
           <View style={[styles.tag, { backgroundColor: c.card, borderRadius: t.radius.full }]}>

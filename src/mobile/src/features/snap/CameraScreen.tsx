@@ -64,9 +64,9 @@ export function CameraScreen({ onPhoto, onClose }: { onPhoto: (image: PickedImag
     <View style={[styles.flex, { backgroundColor: c.cameraBg }]}>
       <StatusBar style="light" />
       <SafeAreaView edges={['top']} style={styles.top}>
+        <Text accessibilityRole="header" style={[t.type.titleLarge, styles.title, { color: c.cameraOnBg, paddingLeft: t.space.sm }]}>Фото вітрини</Text>
+        {granted ? <RoundButton icon={torch ? 'flash_off' : 'flash_on'} label={torch ? 'Вимкнути спалах' : 'Увімкнути спалах'} onPress={() => setTorch((v) => !v)} color={c.cameraOnBg} /> : null}
         <RoundButton icon="close" label="Закрити камеру" onPress={onClose} color={c.cameraOnBg} />
-        <Text style={[t.type.titleLarge, styles.title, { color: c.cameraOnBg }]}>Фото вітрини</Text>
-        {granted ? <RoundButton icon={torch ? 'flash_off' : 'flash_on'} label={torch ? 'Вимкнути спалах' : 'Увімкнути спалах'} onPress={() => setTorch((v) => !v)} color={c.cameraOnBg} /> : <View style={styles.round} />}
       </SafeAreaView>
 
       <View style={[styles.viewfinder, { paddingHorizontal: t.space.xl, gap: t.space.lg }]}>
