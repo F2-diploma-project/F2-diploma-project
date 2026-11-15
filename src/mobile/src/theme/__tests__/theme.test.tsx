@@ -1,5 +1,6 @@
 import { Text } from 'react-native';
-import { render, screen, act } from '@testing-library/react-native';
+import { render, screen, act, waitFor, fireEvent } from '@testing-library/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeProvider, useTheme } from '../ThemeProvider';
 import { colors } from '../tokens';
 import { buildPaperTheme } from '../paperTheme';
@@ -52,6 +53,17 @@ describe('ThemeProvider', () => {
     const spy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
     await expect(render(<Probe />)).rejects.toThrow('useTheme');
     spy.mockRestore();
+  });
+
+  it('з persist вибір теми зберігається й повертається після перезапуску', async () => {
+    await AsyncStorage.clear();
+    const first = await render(<ThemeProvider persist><Probe /></ThemeProvider>);
+    await act(async () => { fireEvent.press(screen.getByTestId('toDark')); });
+    expect(screen.getByTestId('scheme')).toHaveTextContent('dark');
+    first.unmount();
+    const second = await render(<ThemeProvider persist><Probe /></ThemeProvider>);
+    await waitFor(() => expect(screen.getByTestId('pref')).toHaveTextContent('dark'));
+    second.unmount();
   });
 });
 

@@ -233,10 +233,10 @@ paths:
     patch:
       tags: [Staff]
       operationId: updateStaffActivity
-      summary: Активація або деактивація облікового запису
+      summary: Зміна імені, активація або деактивація облікового запису
       description: |
         Роль: `admin`. Деактивація відкликає всі refresh-токени облікового запису; вхід у деактивований обліковий
-        запис дає `401 INVALID_CREDENTIALS`.
+        запис дає `401 INVALID_CREDENTIALS`. Можна змінити ім'я для показу (`display_name`).
       x-required-roles: [admin]
       parameters:
         - $ref: '#/components/parameters/StaffId'
@@ -246,11 +246,13 @@ paths:
           application/json:
             schema:
               type: object
-              required: [is_active]
+              minProperties: 1
               additionalProperties: false
               properties:
                 is_active:
                   type: boolean
+                display_name:
+                  $ref: '#/components/schemas/DisplayName'
             example:
               is_active: false
       responses:
@@ -1102,6 +1104,48 @@ paths:
         '500':
           $ref: '#/components/responses/InternalError'
 
+  /v1/venue/me:
+    get:
+      tags: [Staff]
+      operationId: getMe
+      summary: Хто я і мій заклад
+      description: 'Роль: `admin` або `cashier`. Дані для профілю: ім''я, роль, назва й фото закладу.'
+      responses:
+        '200':
+          description: Профіль працівника.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /v1/venue/me/today:
+    get:
+      tags: [Staff]
+      operationId: getMyToday
+      summary: Мій підсумок за сьогодні
+      description: |
+        Роль: `admin` або `cashier`. Лише власні дії працівника за поточний календарний день (часовий пояс закладу):
+        скільки лотів він опублікував і скільки замовлень видав. Не дає доступу до аналітики закладу.
+      responses:
+        '200':
+          description: Підсумок за день.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodaySummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
   /v1/venue/analytics/summary:
     get:
       tags: [Analytics]
@@ -1919,13 +1963,15 @@ components:
 
     Staff:
       type: object
-      required: [id, login, role, is_active, created_at]
+      required: [id, login, display_name, role, is_active, created_at]
       properties:
         id:
           type: string
           format: uuid
         login:
           type: string
+        display_name:
+          $ref: '#/components/schemas/DisplayName'
         role:
           type: string
           enum: [admin, cashier]
@@ -1935,11 +1981,78 @@ components:
           type: string
           format: date-time
 
+    DisplayName:
+      type: string
+      minLength: 1
+      maxLength: 100
+      description: Ім'я працівника для показу в застосунку (напр. «Олена Коваль»); задає адміністратор.
+
+    Me:
+      type: object
+      required: [staff, venue]
+      properties:
+        staff:
+          type: object
+          required: [id, login, display_name, role]
+          properties:
+            id:
+              type: string
+              format: uuid
+            login:
+              type: string
+            display_name:
+              $ref: '#/components/schemas/DisplayName'
+            role:
+              type: string
+              enum: [admin, cashier]
+        venue:
+          type: object
+          required: [name, photo_url]
+          properties:
+            name:
+              type: string
+              maxLength: 200
+            photo_url:
+              type: [string, 'null']
+              format: uri
+      example:
+        staff:
+          id: 2f1c6a0e-8b1d-4d7e-9a43-5c1f0b7e2d11
+          login: cashier.olena
+          display_name: Олена Коваль
+          role: cashier
+        venue:
+          name: Пекарня «Жито»
+          photo_url: null
+
+    TodaySummary:
+      type: object
+      required: [date, published_lots, redeemed_orders]
+      properties:
+        date:
+          type: string
+          format: date
+          description: Календарний день за часовим поясом закладу.
+        published_lots:
+          type: integer
+          minimum: 0
+          description: Скільки лотів опублікував цей працівник за день.
+        redeemed_orders:
+          type: integer
+          minimum: 0
+          description: Скільки замовлень видав цей працівник за день.
+      example:
+        date: '2026-11-15'
+        published_lots: 6
+        redeemed_orders: 14
+
     CreateCashierRequest:
       type: object
-      required: [login, password]
+      required: [login, display_name, password]
       additionalProperties: false
       properties:
+        display_name:
+          $ref: '#/components/schemas/DisplayName'
         login:
           type: string
           minLength: 3

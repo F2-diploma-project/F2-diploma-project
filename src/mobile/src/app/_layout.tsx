@@ -18,7 +18,7 @@ export default function RootLayout() {
   const [loaded] = useFonts({ Onest_400Regular, Onest_500Medium, Onest_600SemiBold });
   if (!loaded) return null;
   return (
-    <ThemeProvider>
+    <ThemeProvider persist>
       <AuthProvider>
         <Shell />
       </AuthProvider>
