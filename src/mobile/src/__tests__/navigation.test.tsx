@@ -12,6 +12,9 @@ import CashierPickup from '../app/(staff)/(cashier)/pickup';
 import CashierProfile from '../app/(staff)/(cashier)/profile';
 import SnapCamera from '../app/(staff)/snap/camera';
 import LotEditor from '../app/(staff)/lot/[id]';
+import RedeemCode from '../app/(staff)/redeem/code';
+import RedeemOrder from '../app/(staff)/redeem/order';
+import RedeemDone from '../app/(staff)/redeem/done';
 import Index from '../app/index';
 
 jest.mock('react-native/Libraries/Utilities/useColorScheme', () => ({ __esModule: true, default: () => 'light' }));
@@ -40,6 +43,9 @@ const routes = {
   '(staff)/(cashier)/profile': CashierProfile,
   '(staff)/snap/camera': SnapCamera,
   '(staff)/lot/[id]': LotEditor,
+  '(staff)/redeem/code': RedeemCode,
+  '(staff)/redeem/order': RedeemOrder,
+  '(staff)/redeem/done': RedeemDone,
 };
 
 describe('Вхід і ролі', () => {
@@ -108,5 +114,19 @@ describe('Навігація касира', () => {
     await renderRouter(routes, { initialUrl: '/lots?tab=draft' });
     await user.press(await screen.findByRole('button', { name: /Сирник із родзинками/ }, { timeout: 3000 }));
     expect(await screen.findByRole('header', { name: 'Чернетка лота' })).toBeOnTheScreen();
+  });
+});
+
+describe('Видача замовлення', () => {
+  it('код вручну → замовлення → «Видати» → «Видано» → назад до сканера', async () => {
+    const user = userEvent.setup();
+    await renderRouter(routes, { initialUrl: '/pickup' });
+    await user.press(await screen.findByRole('button', { name: 'Ввести код вручну' }));
+    await user.type(await screen.findByLabelText('Код замовлення'), 'k7q4m2');
+    expect(await screen.findByText('Код K7Q-4M2', {}, { timeout: 3000 })).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Видати замовлення' }));
+    expect(await screen.findByText('Видано', {}, { timeout: 3000 })).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Сканувати наступне' }));
+    expect(await screen.findByRole('header', { name: 'Видача' })).toBeOnTheScreen();
   });
 });
