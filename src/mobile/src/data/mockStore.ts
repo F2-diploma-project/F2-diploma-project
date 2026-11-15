@@ -32,10 +32,10 @@ export const FIXTURE_LOTS: StaffLot[] = [
 /** Що «бачить» Vision на тестовому фото вітрини. */
 export const FIXTURE_RECOGNITION = {
   items: [
-    { name: 'Круасан з мигдалем', quantity: 3, confidence: 0.94, price: 4500, regular: 9500, photo: P.croissant, allergens: ['gluten', 'nuts', 'milk'] },
-    { name: 'Сирник із родзинками', quantity: 2, confidence: 0.88, price: 4000, regular: 8000, photo: P.syrtea, allergens: ['milk', 'eggs'] },
-    { name: 'Кава фільтр', quantity: 6, confidence: 0.81, price: 3000, regular: 5500, photo: P.coffee, allergens: [] },
-    { name: 'Булочка з корицею', quantity: 4, confidence: 0.58, price: 3500, regular: 6500, photo: null, allergens: ['gluten', 'milk'] },
+    { name: 'Круасан з мигдалем', quantity: 3, confidence: 0.94, price: 4500, regular: 9500, photo: P.croissant, allergens: ['gluten', 'nuts', 'milk'], box: { x: 0.05, y: 0.05, width: 0.45, height: 0.45 } },
+    { name: 'Сирник із родзинками', quantity: 2, confidence: 0.88, price: 4000, regular: 8000, photo: P.syrtea, allergens: ['milk', 'eggs'], box: { x: 0.5, y: 0.05, width: 0.45, height: 0.45 } },
+    { name: 'Кава фільтр', quantity: 6, confidence: 0.81, price: 3000, regular: 5500, photo: P.coffee, allergens: [], box: { x: 0.05, y: 0.5, width: 0.45, height: 0.45 } },
+    { name: 'Булочка з корицею', quantity: 4, confidence: 0.58, price: 3500, regular: 6500, photo: null, allergens: ['gluten', 'milk'], box: { x: 0.5, y: 0.5, width: 0.45, height: 0.45 } },
   ],
   bundle: { name: 'Сет «Круасан + кава»', items: [{ name: 'Круасан з мигдалем', quantity: 1 }, { name: 'Кава фільтр', quantity: 1 }], price_minor: 6900, regular_price_minor: 15000 } as BundleSuggestion,
 } as const;
@@ -147,7 +147,7 @@ export function createMockBackend({ lots = FIXTURE_LOTS, delayMs = 400, fail = f
             const lot = auto
               ? createLot({ name: it.name, base_price_minor: it.price, regular_price_minor: it.regular, quantity: it.quantity, pickup_to: at(21), photo: it.photo, allergens: [...it.allergens] as StaffLot['allergens'], unit: it.name.startsWith('Кава') ? 'portions' : 'pcs' })
               : null;
-            return { id: `${jobId}-item-${i + 1}`, position: i + 1, name: it.name, quantity: it.quantity, confidence: it.confidence, review_status: auto ? 'auto_accepted' : 'pending_review', lot_id: lot?.id ?? null };
+            return { id: `${jobId}-item-${i + 1}`, position: i + 1, name: it.name, quantity: it.quantity, confidence: it.confidence, review_status: auto ? 'auto_accepted' : 'pending_review', lot_id: lot?.id ?? null, box: it.box };
           });
           const pending = items.some((i) => i.review_status === 'pending_review');
           entry.job = { ...entry.job, status: pending ? 'needs_review' : 'completed', items, bundle_suggestion: FIXTURE_RECOGNITION.bundle };

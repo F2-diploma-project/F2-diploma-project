@@ -11,6 +11,14 @@ export type RecognitionErrorCode =
   | 'RETRIES_EXHAUSTED';
 export type ReviewStatus = 'auto_accepted' | 'pending_review' | 'accepted' | 'rejected';
 
+/** Де на фото вітрини знайдено позицію — частки ширини й висоти фото (0…1), як `PhotoBox` в API. */
+export interface PhotoBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export interface RecognitionItem {
   id: string;
   position: number;
@@ -19,6 +27,7 @@ export interface RecognitionItem {
   confidence: number;
   review_status: ReviewStatus;
   lot_id: string | null;
+  box?: PhotoBox | null;
 }
 
 /**
@@ -78,3 +87,20 @@ export const IMAGE_PROBLEM_TEXT: Record<Exclude<ImageProblem, null>, string> = {
 
 /** Чи завдання вже має результат. */
 export const isFinished = (s: RecognitionJobStatus) => s === 'completed' || s === 'needs_review' || s === 'failed';
+
+/**
+ * Як показати фрагмент фото в квадраті `size`: рамка позиції заповнює квадрат (за коротшою стороною) і стоїть по центру.
+ * Повертає розмір і зсув усього фото всередині квадрата. Без розмірів фото — показуємо фото цілком.
+ */
+export function cropLayout(box: PhotoBox, photoWidth: number, photoHeight: number, size: number) {
+  if (!photoWidth || !photoHeight) return { width: size, height: size, left: 0, top: 0 };
+  const boxW = box.width * photoWidth;
+  const boxH = box.height * photoHeight;
+  const scale = size / Math.min(boxW, boxH);
+  return {
+    width: photoWidth * scale,
+    height: photoHeight * scale,
+    left: -box.x * photoWidth * scale + (size - boxW * scale) / 2,
+    top: -box.y * photoHeight * scale + (size - boxH * scale) / 2,
+  };
+}

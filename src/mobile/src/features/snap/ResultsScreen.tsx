@@ -3,15 +3,45 @@ import { Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from '../../components/icons/Icon';
-import { Banner, IconChip, LotCard, TopBar } from '../../components/ui';
-import { formatDiscount, formatPrice, plural } from '../../data/format';
-import type { BundleSuggestion, RecognitionItem, RecognitionService } from '../../data/recognition';
+import { Banner, LotCard, TopBar } from '../../components/ui';
+import { formatDiscount, formatPrice, imageSource, plural } from '../../data/format';
+import { cropLayout, type BundleSuggestion, type PhotoBox, type RecognitionItem, type RecognitionService } from '../../data/recognition';
 import type { LotsService, StaffLot } from '../../data/types';
 import { useTheme } from '../../theme';
 
 const BUNDLE_PHOTOS = [require('../../../assets/photos/croissant_b.jpg'), require('../../../assets/photos/coffee.jpg')];
 
-function ReviewCard({ item, onDecide }: { item: RecognitionItem; onDecide: (decision: 'accept' | 'reject', fix: { name: string; quantity: number }) => Promise<void> }) {
+/** Фрагмент фото вітрини, де знайдено позицію (`item.box`); без рамки — фото цілком. */
+function PhotoCrop({ photo, box, size }: { photo: string | number; box: PhotoBox | null | undefined; size: number }) {
+  const t = useTheme();
+  const [dims, setDims] = useState<{ w: number; h: number }>(() => {
+    if (typeof photo === 'number') {
+      const a = Image.resolveAssetSource(photo);
+      return { w: a?.width ?? 0, h: a?.height ?? 0 };
+    }
+    return { w: 0, h: 0 };
+  });
+  useEffect(() => {
+    if (typeof photo !== 'string') return;
+    let alive = true;
+    Image.getSize(photo).then(
+      ({ width, height }) => alive && setDims({ w: width, h: height }),
+      () => undefined,
+    );
+    return () => {
+      alive = false;
+    };
+  }, [photo]);
+  const l = box ? cropLayout(box, dims.w, dims.h, size) : { width: size, height: size, left: 0, top: 0 };
+  return (
+    <View testID="review-photo" aria-hidden style={{ width: size, height: size, borderRadius: t.radius.thumb, overflow: 'hidden', backgroundColor: t.colors.surfaceVariant }}>
+      <Image source={imageSource(photo)} style={{ position: 'absolute', width: l.width, height: l.height, left: l.left, top: l.top }} resizeMode={box && dims.w ? 'stretch' : 'cover'} />
+    </View>
+  );
+}
+
+/** Позиція з низькою впевненістю: стан «Не впевнені · N %», фрагмент фото, поля назви й кількості, «Додати до чернеток» / «Це не те». */
+function ReviewCard({ item, photo, onDecide }: { item: RecognitionItem; photo: string | number | null; onDecide: (decision: 'accept' | 'reject', fix: { name: string; quantity: number }) => Promise<void> }) {
   const t = useTheme();
   const c = t.colors;
   const [name, setName] = useState(item.name);
@@ -28,20 +58,35 @@ function ReviewCard({ item, onDecide }: { item: RecognitionItem; onDecide: (deci
     }
   };
   return (
-    <View testID="review-card" style={[styles.box, { backgroundColor: c.tertiaryContainer, borderRadius: t.radius.card, padding: t.space.lg, gap: t.space.md }]}>
+    <View testID="review-card" style={[styles.box, { backgroundColor: c.card, borderRadius: t.radius.card, padding: t.space.lg, gap: t.space.md }]}>
       <View style={[styles.row, { gap: t.space.md }]}>
-        <IconChip icon="help" color={c.tertiary} background={c.iconPlate} />
-        <Text style={[t.type.bodyMedium, styles.flex, { color: c.onTertiaryContainer }]}>
-          Не впевнені ({Math.round(item.confidence * 100)} %). Перевірте назву й кількість.
-        </Text>
+        {photo !== null ? <PhotoCrop photo={photo} box={item.box} size={t.size.thumb} /> : null}
+        <View style={[styles.flex, { gap: t.space.xs }]}>
+          <View style={[styles.tag, styles.start, { backgroundColor: c.tertiaryContainer, borderRadius: t.radius.full }]}>
+            <Icon name="help" color={c.onTertiaryContainer} size={18} />
+            <Text style={[t.type.labelLarge, { color: c.onTertiaryContainer }]}>Не впевнені · {Math.round(item.confidence * 100)} %</Text>
+          </View>
+          <Text style={[t.type.bodyMedium, { color: c.onSurfaceVariant }]}>Перевірте назву й кількість</Text>
+        </View>
       </View>
-      <TextInput mode="outlined" label="Назва" accessibilityLabel="Назва" value={name} onChangeText={setName} dense theme={{ roundness: t.radius.md }} style={{ backgroundColor: c.card }} />
-      <TextInput mode="outlined" label="Кількість" accessibilityLabel="Кількість" value={qty} onChangeText={setQty} keyboardType="number-pad" dense theme={{ roundness: t.radius.md }} style={{ backgroundColor: c.card }} />
+      <TextInput mode="outlined" label="Назва" accessibilityLabel="Назва" value={name} onChangeText={setName} theme={{ roundness: t.radius.md }} style={{ backgroundColor: c.card }} />
+      <View style={styles.half}>
+        <TextInput mode="outlined" label="Кількість" accessibilityLabel="Кількість" value={qty} onChangeText={setQty} keyboardType="number-pad" theme={{ roundness: t.radius.md }} style={{ backgroundColor: c.card }} />
+      </View>
       <View style={[styles.row, { gap: t.space.sm }]}>
-        <Button mode="contained" disabled={!valid || busy} onPress={() => decide('accept')} accessibilityLabel="Додати" labelStyle={t.type.labelLarge}>
-          Додати
+        <Button
+          mode="contained"
+          disabled={!valid || busy}
+          onPress={() => decide('accept')}
+          accessibilityLabel="Додати до чернеток"
+          icon={({ color }) => <Icon name="add" color={color} size={20} />}
+          style={[styles.flex, { borderRadius: t.radius.full }]}
+          contentStyle={{ height: t.size.touchMin }}
+          labelStyle={t.type.labelLarge}
+        >
+          Додати до чернеток
         </Button>
-        <Button mode="text" disabled={busy} onPress={() => decide('reject')} accessibilityLabel="Це не те" labelStyle={t.type.labelLarge}>
+        <Button mode="text" disabled={busy} onPress={() => decide('reject')} accessibilityLabel="Це не те" contentStyle={{ height: t.size.touchMin }} labelStyle={t.type.labelLarge}>
           Це не те
         </Button>
       </View>
@@ -182,7 +227,7 @@ export function ResultsScreen({ jobId, recognition, lots, onOpenLot, onSaved, on
             return lot ? <LotCard key={i.id} lot={lot} onPress={() => onOpenLot(lot.id)} /> : null;
           })}
           {pending.map((i) => (
-            <ReviewCard key={i.id} item={i} onDecide={(d, fix) => decide(i, d, fix)} />
+            <ReviewCard key={i.id} item={i} photo={recognition.photoOf(jobId)} onDecide={(d, fix) => decide(i, d, fix)} />
           ))}
           {bundle ? <BundleCard bundle={bundle} onAdd={addBundle} onDismiss={() => setBundle(null)} /> : null}
         </ScrollView>
@@ -203,6 +248,8 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   row: { flexDirection: 'row', alignItems: 'center' },
+  start: { alignSelf: 'flex-start' },
+  half: { width: '50%' },
   between: { justifyContent: 'space-between' },
   box: {},
   tag: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 4, paddingLeft: 8, paddingRight: 12 },
