@@ -1,9 +1,12 @@
+import { Image } from 'react-native';
 import { render, screen, userEvent, waitFor, within } from '@testing-library/react-native';
 import { ThemeProvider } from '../../../theme';
 import { createMockBackend } from '../../../data/mockStore';
 import { ResultsScreen } from '../ResultsScreen';
 
 jest.mock('react-native/Libraries/Utilities/useColorScheme', () => ({ __esModule: true, default: () => 'light' }));
+// Імітація ImageLoader у jest-expo застаріла для RN 0.88 — розмір фото підставляємо самі.
+jest.spyOn(Image, 'getSize').mockImplementation((() => Promise.resolve({ width: 1000, height: 800 })) as unknown as typeof Image.getSize);
 
 const setup = async () => {
   const backend = createMockBackend({ delayMs: 0, processingPolls: 0 });
@@ -27,10 +30,12 @@ describe('«Знайдено на фото»', () => {
   it('невпевнену позицію треба підтвердити: «Додати» створює чернетку', async () => {
     const { user } = await setup();
     const card = screen.getByTestId('review-card');
-    expect(within(card).getByText(/Не впевнені/)).toBeOnTheScreen();
+    expect(within(card).getByText('Не впевнені · 58 %')).toBeOnTheScreen();
+    expect(within(card).getByText('Перевірте назву й кількість')).toBeOnTheScreen();
+    expect(within(card).getByTestId('review-photo', { includeHiddenElements: true })).toBeOnTheScreen();
     await user.clear(within(card).getByLabelText('Назва'));
     await user.type(within(card).getByLabelText('Назва'), 'Булочка з маком');
-    await user.press(within(card).getByRole('button', { name: 'Додати' }));
+    await user.press(within(card).getByRole('button', { name: 'Додати до чернеток' }));
     expect(await screen.findByText('Булочка з маком')).toBeOnTheScreen();
     expect(screen.queryByTestId('review-card')).toBeNull();
     expect(screen.getByText('Розпізнано 4 позиції. Перевірте й опублікуйте.')).toBeOnTheScreen();

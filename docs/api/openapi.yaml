@@ -2115,6 +2115,41 @@ components:
           type: [string, 'null']
           format: uuid
           description: Ідентифікатор чернетки лота; `null`, доки позицію не прийнято.
+        box:
+          description: |
+            Де на фото вітрини знайдено позицію — прямокутник у частках ширини й висоти фото (0…1).
+            Застосунок показує цей фрагмент як мініатюру позиції, щоб касир бачив, що саме розпізнано.
+            `null`, якщо Vision не повернув координат.
+          oneOf:
+            - $ref: '#/components/schemas/PhotoBox'
+            - type: 'null'
+
+    PhotoBox:
+      type: object
+      required: [x, y, width, height]
+      additionalProperties: false
+      properties:
+        x:
+          type: number
+          minimum: 0
+          maximum: 1
+        y:
+          type: number
+          minimum: 0
+          maximum: 1
+        width:
+          type: number
+          exclusiveMinimum: 0
+          maximum: 1
+        height:
+          type: number
+          exclusiveMinimum: 0
+          maximum: 1
+      example:
+        x: 0.08
+        y: 0.5
+        width: 0.32
+        height: 0.42
 
     RecognitionJob:
       type: object
