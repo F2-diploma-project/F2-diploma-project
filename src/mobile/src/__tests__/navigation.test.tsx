@@ -15,6 +15,8 @@ import LotEditor from '../app/(staff)/lot/[id]';
 import RedeemCode from '../app/(staff)/redeem/code';
 import RedeemOrder from '../app/(staff)/redeem/order';
 import RedeemDone from '../app/(staff)/redeem/done';
+import SettingsNotifications from '../app/(staff)/settings/notifications';
+import SettingsHelp from '../app/(staff)/settings/help';
 import Index from '../app/index';
 
 jest.mock('react-native/Libraries/Utilities/useColorScheme', () => ({ __esModule: true, default: () => 'light' }));
@@ -46,6 +48,8 @@ const routes = {
   '(staff)/redeem/code': RedeemCode,
   '(staff)/redeem/order': RedeemOrder,
   '(staff)/redeem/done': RedeemDone,
+  '(staff)/settings/notifications': SettingsNotifications,
+  '(staff)/settings/help': SettingsHelp,
 };
 
 describe('Вхід і ролі', () => {
@@ -128,5 +132,21 @@ describe('Видача замовлення', () => {
     expect(await screen.findByText('Видано', {}, { timeout: 3000 })).toBeOnTheScreen();
     await user.press(screen.getByRole('button', { name: 'Сканувати наступне' }));
     expect(await screen.findByRole('header', { name: 'Видача' })).toBeOnTheScreen();
+  });
+});
+
+describe('Профіль', () => {
+  it('профіль → сповіщення → назад → допомога → назад → «Вийти» веде на вхід', async () => {
+    const user = userEvent.setup();
+    await renderRouter(routes, { initialUrl: '/profile' });
+    expect(await screen.findByText('Олена Коваль', {}, { timeout: 3000 })).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: /^Сповіщення/ }));
+    expect(await screen.findByRole('header', { name: 'Сповіщення' })).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Назад' }));
+    await user.press(await screen.findByRole('button', { name: /^Допомога/ }));
+    expect(await screen.findByText('Як видати замовлення')).toBeOnTheScreen();
+    await user.press(screen.getByRole('button', { name: 'Назад' }));
+    await user.press(await screen.findByRole('button', { name: 'Вийти' }));
+    expect(await screen.findByRole('header', { name: 'Вхід для персоналу' })).toBeOnTheScreen();
   });
 });

@@ -5,6 +5,7 @@
   "dependencies": {
     "@expo-google-fonts/onest": "^0.4.2",
     "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
     "expo": "~58.0.25",
     "expo-camera": "~58.0.14",
     "expo-constants": "~58.0.16",
@@ -50,6 +51,9 @@
     ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|standard-navigation|react-native-paper|react-native-vector-icons|@callstack/.*|react-native-svg)"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.ts"
     ]
   }
 }

@@ -1,5 +1,6 @@
 import { LotError, type LotsService, type StaffLot, type VenueLotStatus } from './types';
 import type { BundleSuggestion, PickedImage, RecognitionItem, RecognitionJob, RecognitionService } from './recognition';
+import type { Me, ProfileService } from './profile';
 import { isLate, PickupError, type OrderPreview, type PickupRef, type PickupService, type Redemption } from './pickup';
 
 /** Спільне сховище заглушки: лоти, завдання розпізнавання. Замінюється на клієнт API. */
@@ -229,7 +230,28 @@ export function createMockBackend({ lots = FIXTURE_LOTS, delayMs = 400, fail = f
     },
   };
 
-  return { lots: lotsService, recognition: recognitionService, pickup: pickupService };
+  const people: Record<string, { name: string; role: Me['staff']['role'] }> = {
+    'cashier.olena': { name: 'Олена Коваль', role: 'cashier' },
+    'admin.maria': { name: 'Марія Гнатюк', role: 'admin' },
+  };
+  const profileService: ProfileService = {
+    async me(login) {
+      await wait();
+      const p = people[login] ?? { name: login, role: 'cashier' };
+      return { staff: { id: `staff-${login}`, login, display_name: p.name, role: p.role }, venue: { name: 'Пекарня «Жито»', photo: P.bread } };
+    },
+    async today() {
+      await wait();
+      // Заглушка: «сьогодні» = поточний стан тестових даних (опубліковані лоти й видані замовлення).
+      return {
+        date: new Date().toISOString().slice(0, 10),
+        published_lots: data.filter((l) => l.status === 'active').length,
+        redeemed_orders: orders.filter((o) => o.status === 'picked_up').length,
+      };
+    },
+  };
+
+  return { lots: lotsService, recognition: recognitionService, pickup: pickupService, profile: profileService };
 }
 
 /** Один екземпляр на весь застосунок (поки немає API). */
