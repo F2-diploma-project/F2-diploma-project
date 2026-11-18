@@ -1,0 +1,22 @@
+name: Docs Quality Gate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: markdownlint (docs/)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # Правила — у .markdownlint.json, перелік файлів і власне правило
+      # термінології (no-slang) — у .markdownlint-cli2.jsonc.
+      - uses: DavidAnson/markdownlint-cli2-action@v25.0.0
+        with:
+          config: .markdownlint-cli2.jsonc
