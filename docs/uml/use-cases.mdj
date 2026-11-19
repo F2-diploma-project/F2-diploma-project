@@ -47,9 +47,9 @@
 												"$ref": "F2UC0000000000000006"
 											},
 											"font": "Arial;13;0",
-											"left": 200,
+											"left": 220,
 											"top": 30,
-											"width": 860,
+											"width": 1200,
 											"height": 13,
 											"visible": false
 										},
@@ -60,9 +60,9 @@
 												"$ref": "F2UC0000000000000006"
 											},
 											"font": "Arial;13;1",
-											"left": 200,
+											"left": 220,
 											"top": 36,
-											"width": 860,
+											"width": 1200,
 											"height": 13,
 											"text": "F2 B2B — система закладу харчування"
 										},
@@ -73,9 +73,9 @@
 												"$ref": "F2UC0000000000000006"
 											},
 											"font": "Arial;13;0",
-											"left": 200,
+											"left": 220,
 											"top": 30,
-											"width": 860,
+											"width": 1200,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -87,17 +87,17 @@
 												"$ref": "F2UC0000000000000006"
 											},
 											"font": "Arial;13;0",
-											"left": 200,
+											"left": 220,
 											"top": 30,
-											"width": 860,
+											"width": 1200,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 200,
+									"left": 220,
 									"top": 30,
-									"width": 860,
+									"width": 1200,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000007"
@@ -115,10 +115,10 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 200,
+							"left": 220,
 							"top": 30,
-							"width": 860,
-							"height": 900,
+							"width": 1200,
+							"height": 1230,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000006"
 							}
@@ -151,7 +151,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 230,
+											"top": 400,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -164,7 +164,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 60,
-											"top": 236,
+											"top": 406,
 											"width": 48,
 											"height": 13,
 											"text": "Касир"
@@ -177,7 +177,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 230,
+											"top": 400,
 											"width": 48,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
@@ -191,7 +191,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 230,
+											"top": 400,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -199,7 +199,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 230,
+									"top": 400,
 									"width": 48,
 									"height": 25,
 									"stereotypeLabel": {
@@ -226,7 +226,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 230,
+									"top": 400,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -242,7 +242,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 230,
+									"top": 400,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -258,7 +258,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 230,
+									"top": 400,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -274,7 +274,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 230,
+									"top": 400,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -283,7 +283,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 60,
-							"top": 230,
+							"top": 400,
 							"width": 48,
 							"height": 90,
 							"nameCompartment": {
@@ -300,7 +300,10 @@
 							},
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000021"
-							}
+							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true
 						},
 						{
 							"_type": "UMLActorView",
@@ -330,7 +333,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 640,
+											"top": 1000,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -343,7 +346,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 60,
-											"top": 646,
+											"top": 1006,
 											"width": 48,
 											"height": 13,
 											"text": "Адміністратор закладу"
@@ -356,7 +359,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 640,
+											"top": 1000,
 											"width": 48,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
@@ -370,7 +373,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 60,
-											"top": 640,
+											"top": 1000,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -378,7 +381,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 640,
+									"top": 1000,
 									"width": 48,
 									"height": 25,
 									"stereotypeLabel": {
@@ -405,7 +408,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 640,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -421,7 +424,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 640,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -437,7 +440,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 640,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -453,7 +456,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 60,
-									"top": 640,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -462,7 +465,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 60,
-							"top": 640,
+							"top": 1000,
 							"width": 48,
 							"height": 90,
 							"nameCompartment": {
@@ -479,7 +482,10 @@
 							},
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000032"
-							}
+							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true
 						},
 						{
 							"_type": "UMLActorView",
@@ -508,8 +514,8 @@
 												"$ref": "F2UC0000000000000035"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 110,
+											"left": 1500,
+											"top": 120,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -521,8 +527,8 @@
 												"$ref": "F2UC0000000000000035"
 											},
 											"font": "Arial;13;1",
-											"left": 1140,
-											"top": 116,
+											"left": 1500,
+											"top": 126,
 											"width": 48,
 											"height": 13,
 											"text": "Vision API"
@@ -534,8 +540,8 @@
 												"$ref": "F2UC0000000000000035"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 110,
+											"left": 1500,
+											"top": 120,
 											"width": 48,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
@@ -548,16 +554,16 @@
 												"$ref": "F2UC0000000000000035"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 110,
+											"left": 1500,
+											"top": 120,
 											"width": 48,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 110,
+									"left": 1500,
+									"top": 120,
 									"width": 48,
 									"height": 25,
 									"stereotypeLabel": {
@@ -583,8 +589,8 @@
 										"$ref": "F2UC0000000000000033"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 110,
+									"left": 1500,
+									"top": 120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -599,8 +605,8 @@
 										"$ref": "F2UC0000000000000033"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 110,
+									"left": 1500,
+									"top": 120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -615,8 +621,8 @@
 										"$ref": "F2UC0000000000000033"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 110,
+									"left": 1500,
+									"top": 120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -631,8 +637,8 @@
 										"$ref": "F2UC0000000000000033"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 110,
+									"left": 1500,
+									"top": 120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -640,8 +646,8 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 1140,
-							"top": 110,
+							"left": 1500,
+							"top": 120,
 							"width": 48,
 							"height": 90,
 							"nameCompartment": {
@@ -658,7 +664,10 @@
 							},
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000043"
-							}
+							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true
 						},
 						{
 							"_type": "UMLActorView",
@@ -687,8 +696,8 @@
 												"$ref": "F2UC0000000000000046"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 700,
+											"left": 1500,
+											"top": 980,
 											"width": 48,
 											"height": 13,
 											"visible": false
@@ -700,8 +709,8 @@
 												"$ref": "F2UC0000000000000046"
 											},
 											"font": "Arial;13;1",
-											"left": 1140,
-											"top": 706,
+											"left": 1500,
+											"top": 986,
 											"width": 48,
 											"height": 13,
 											"text": "B2C-модуль"
@@ -713,8 +722,8 @@
 												"$ref": "F2UC0000000000000046"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 700,
+											"left": 1500,
+											"top": 980,
 											"width": 48,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
@@ -727,16 +736,16 @@
 												"$ref": "F2UC0000000000000046"
 											},
 											"font": "Arial;13;0",
-											"left": 1140,
-											"top": 700,
+											"left": 1500,
+											"top": 980,
 											"width": 48,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 700,
+									"left": 1500,
+									"top": 980,
 									"width": 48,
 									"height": 25,
 									"stereotypeLabel": {
@@ -762,8 +771,8 @@
 										"$ref": "F2UC0000000000000044"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 700,
+									"left": 1500,
+									"top": 980,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -778,8 +787,8 @@
 										"$ref": "F2UC0000000000000044"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 700,
+									"left": 1500,
+									"top": 980,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -794,8 +803,8 @@
 										"$ref": "F2UC0000000000000044"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 700,
+									"left": 1500,
+									"top": 980,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -810,8 +819,8 @@
 										"$ref": "F2UC0000000000000044"
 									},
 									"font": "Arial;13;0",
-									"left": 1140,
-									"top": 700,
+									"left": 1500,
+									"top": 980,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -819,8 +828,8 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 1140,
-							"top": 700,
+							"left": 1500,
+							"top": 980,
 							"width": 48,
 							"height": 90,
 							"nameCompartment": {
@@ -837,7 +846,10 @@
 							},
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000054"
-							}
+							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true
 						},
 						{
 							"_type": "UMLUseCaseView",
@@ -866,9 +878,9 @@
 												"$ref": "F2UC0000000000000057"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 70,
-											"width": 230,
+											"left": 280,
+											"top": 90,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -879,9 +891,9 @@
 												"$ref": "F2UC0000000000000057"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 76,
-											"width": 230,
+											"left": 280,
+											"top": 96,
+											"width": 300,
 											"height": 13,
 											"text": "Увійти в систему"
 										},
@@ -892,9 +904,9 @@
 												"$ref": "F2UC0000000000000057"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 70,
-											"width": 230,
+											"left": 280,
+											"top": 90,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -906,17 +918,17 @@
 												"$ref": "F2UC0000000000000057"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 70,
-											"width": 230,
+											"left": 280,
+											"top": 90,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
-									"width": 230,
+									"left": 280,
+									"top": 90,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000058"
@@ -941,8 +953,8 @@
 										"$ref": "F2UC0000000000000055"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
+									"left": 280,
+									"top": 90,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -957,8 +969,8 @@
 										"$ref": "F2UC0000000000000055"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
+									"left": 280,
+									"top": 90,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -973,8 +985,8 @@
 										"$ref": "F2UC0000000000000055"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
+									"left": 280,
+									"top": 90,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -989,8 +1001,8 @@
 										"$ref": "F2UC0000000000000055"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
+									"left": 280,
+									"top": 90,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1005,8 +1017,8 @@
 										"$ref": "F2UC0000000000000055"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 70,
+									"left": 280,
+									"top": 90,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1014,9 +1026,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 70,
-							"width": 230,
+							"left": 280,
+							"top": 90,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000057"
@@ -1033,6 +1045,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000065"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000066"
 							}
@@ -1064,9 +1079,9 @@
 												"$ref": "F2UC0000000000000071"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 160,
-											"width": 230,
+											"left": 280,
+											"top": 200,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -1077,9 +1092,9 @@
 												"$ref": "F2UC0000000000000071"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 166,
-											"width": 230,
+											"left": 280,
+											"top": 206,
+											"width": 300,
 											"height": 13,
 											"text": "Сформувати лоти з фото вітрини"
 										},
@@ -1090,9 +1105,9 @@
 												"$ref": "F2UC0000000000000071"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 160,
-											"width": 230,
+											"left": 280,
+											"top": 200,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -1104,17 +1119,17 @@
 												"$ref": "F2UC0000000000000071"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 160,
-											"width": 230,
+											"left": 280,
+											"top": 200,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
-									"width": 230,
+									"left": 280,
+									"top": 200,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000072"
@@ -1139,8 +1154,8 @@
 										"$ref": "F2UC0000000000000067"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
+									"left": 280,
+									"top": 200,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1155,8 +1170,8 @@
 										"$ref": "F2UC0000000000000067"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
+									"left": 280,
+									"top": 200,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1171,8 +1186,8 @@
 										"$ref": "F2UC0000000000000067"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
+									"left": 280,
+									"top": 200,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1187,8 +1202,8 @@
 										"$ref": "F2UC0000000000000067"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
+									"left": 280,
+									"top": 200,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1203,17 +1218,17 @@
 										"$ref": "F2UC0000000000000067"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 160,
+									"left": 280,
+									"top": 200,
 									"width": 10,
 									"height": 10
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 160,
-							"width": 230,
+							"left": 280,
+							"top": 200,
+							"width": 300,
 							"height": 92,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000071"
@@ -1230,6 +1245,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000079"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000080"
 							}
@@ -1261,9 +1279,9 @@
 												"$ref": "F2UC0000000000000083"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 280,
-											"width": 230,
+											"left": 280,
+											"top": 370,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -1274,11 +1292,11 @@
 												"$ref": "F2UC0000000000000083"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 286,
-											"width": 230,
+											"left": 280,
+											"top": 376,
+											"width": 300,
 											"height": 13,
-											"text": "Опублікувати лот"
+											"text": "Створити лот вручну"
 										},
 										{
 											"_type": "LabelView",
@@ -1287,9 +1305,9 @@
 												"$ref": "F2UC0000000000000083"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 280,
-											"width": 230,
+											"left": 280,
+											"top": 370,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -1301,17 +1319,17 @@
 												"$ref": "F2UC0000000000000083"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 280,
-											"width": 230,
+											"left": 280,
+											"top": 370,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
-									"width": 230,
+									"left": 280,
+									"top": 370,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000084"
@@ -1336,8 +1354,8 @@
 										"$ref": "F2UC0000000000000081"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
+									"left": 280,
+									"top": 370,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1352,8 +1370,8 @@
 										"$ref": "F2UC0000000000000081"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
+									"left": 280,
+									"top": 370,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1368,8 +1386,8 @@
 										"$ref": "F2UC0000000000000081"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
+									"left": 280,
+									"top": 370,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1384,8 +1402,8 @@
 										"$ref": "F2UC0000000000000081"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
+									"left": 280,
+									"top": 370,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1400,8 +1418,8 @@
 										"$ref": "F2UC0000000000000081"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 280,
+									"left": 280,
+									"top": 370,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1409,9 +1427,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 280,
-							"width": 230,
+							"left": 280,
+							"top": 370,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000083"
@@ -1428,6 +1446,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000091"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000092"
 							}
@@ -1459,9 +1480,9 @@
 												"$ref": "F2UC0000000000000095"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 360,
-											"width": 230,
+											"left": 280,
+											"top": 480,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -1472,11 +1493,11 @@
 												"$ref": "F2UC0000000000000095"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 366,
-											"width": 230,
+											"left": 280,
+											"top": 486,
+											"width": 300,
 											"height": 13,
-											"text": "Зняти лот з продажу"
+											"text": "Опублікувати лот"
 										},
 										{
 											"_type": "LabelView",
@@ -1485,9 +1506,9 @@
 												"$ref": "F2UC0000000000000095"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 360,
-											"width": 230,
+											"left": 280,
+											"top": 480,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -1499,17 +1520,17 @@
 												"$ref": "F2UC0000000000000095"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 360,
-											"width": 230,
+											"left": 280,
+											"top": 480,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
-									"width": 230,
+									"left": 280,
+									"top": 480,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000096"
@@ -1534,8 +1555,8 @@
 										"$ref": "F2UC0000000000000093"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
+									"left": 280,
+									"top": 480,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1550,8 +1571,8 @@
 										"$ref": "F2UC0000000000000093"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
+									"left": 280,
+									"top": 480,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1566,8 +1587,8 @@
 										"$ref": "F2UC0000000000000093"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
+									"left": 280,
+									"top": 480,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1582,8 +1603,8 @@
 										"$ref": "F2UC0000000000000093"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
+									"left": 280,
+									"top": 480,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1598,8 +1619,8 @@
 										"$ref": "F2UC0000000000000093"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 360,
+									"left": 280,
+									"top": 480,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1607,9 +1628,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 360,
-							"width": 230,
+							"left": 280,
+							"top": 480,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000095"
@@ -1626,13 +1647,16 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000103"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000104"
 							}
 						},
 						{
 							"_type": "UMLUseCaseView",
-							"_id": "F2UC0000000000000108",
+							"_id": "F2UC0000000000000106",
 							"_parent": {
 								"$ref": "F2UC0000000000000003"
 							},
@@ -1642,9 +1666,9 @@
 							"subViews": [
 								{
 									"_type": "UMLNameCompartmentView",
-									"_id": "F2UC0000000000000109",
+									"_id": "F2UC0000000000000107",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
@@ -1652,179 +1676,183 @@
 									"subViews": [
 										{
 											"_type": "LabelView",
-											"_id": "F2UC0000000000000110",
+											"_id": "F2UC0000000000000108",
 											"_parent": {
-												"$ref": "F2UC0000000000000109"
+												"$ref": "F2UC0000000000000107"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 440,
-											"width": 230,
+											"left": 280,
+											"top": 590,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
 										{
 											"_type": "LabelView",
-											"_id": "F2UC0000000000000111",
+											"_id": "F2UC0000000000000109",
 											"_parent": {
-												"$ref": "F2UC0000000000000109"
+												"$ref": "F2UC0000000000000107"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 446,
-											"width": 230,
+											"left": 280,
+											"top": 596,
+											"width": 300,
 											"height": 13,
-											"text": "Видати замовлення за QR-кодом"
+											"text": "Зняти лот з продажу"
 										},
 										{
 											"_type": "LabelView",
-											"_id": "F2UC0000000000000112",
+											"_id": "F2UC0000000000000110",
 											"_parent": {
-												"$ref": "F2UC0000000000000109"
+												"$ref": "F2UC0000000000000107"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 440,
-											"width": 230,
+											"left": 280,
+											"top": 590,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
 										},
 										{
 											"_type": "LabelView",
-											"_id": "F2UC0000000000000113",
+											"_id": "F2UC0000000000000111",
 											"_parent": {
-												"$ref": "F2UC0000000000000109"
+												"$ref": "F2UC0000000000000107"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 440,
-											"width": 230,
+											"left": 280,
+											"top": 590,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
-									"width": 230,
+									"left": 280,
+									"top": 590,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
-										"$ref": "F2UC0000000000000110"
+										"$ref": "F2UC0000000000000108"
 									},
 									"nameLabel": {
-										"$ref": "F2UC0000000000000111"
+										"$ref": "F2UC0000000000000109"
 									},
 									"namespaceLabel": {
-										"$ref": "F2UC0000000000000112"
+										"$ref": "F2UC0000000000000110"
 									},
 									"propertyLabel": {
-										"$ref": "F2UC0000000000000113"
+										"$ref": "F2UC0000000000000111"
 									}
 								},
 								{
 									"_type": "UMLAttributeCompartmentView",
-									"_id": "F2UC0000000000000114",
+									"_id": "F2UC0000000000000112",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
+									"left": 280,
+									"top": 590,
 									"width": 10,
 									"height": 10,
 									"visible": false
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
-									"_id": "F2UC0000000000000115",
+									"_id": "F2UC0000000000000113",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
+									"left": 280,
+									"top": 590,
 									"width": 10,
 									"height": 10,
 									"visible": false
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
-									"_id": "F2UC0000000000000116",
+									"_id": "F2UC0000000000000114",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
+									"left": 280,
+									"top": 590,
 									"width": 10,
 									"height": 10,
 									"visible": false
 								},
 								{
 									"_type": "UMLTemplateParameterCompartmentView",
-									"_id": "F2UC0000000000000117",
+									"_id": "F2UC0000000000000115",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
+									"left": 280,
+									"top": 590,
 									"width": 10,
 									"height": 10,
 									"visible": false
 								},
 								{
 									"_type": "UMLExtensionPointCompartmentView",
-									"_id": "F2UC0000000000000118",
+									"_id": "F2UC0000000000000116",
 									"_parent": {
-										"$ref": "F2UC0000000000000108"
+										"$ref": "F2UC0000000000000106"
 									},
 									"model": {
 										"$ref": "F2UC0000000000000105"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 440,
+									"left": 280,
+									"top": 590,
 									"width": 10,
-									"height": 10
+									"height": 10,
+									"visible": false
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 440,
-							"width": 230,
-							"height": 92,
+							"left": 280,
+							"top": 590,
+							"width": 300,
+							"height": 60,
 							"nameCompartment": {
-								"$ref": "F2UC0000000000000109"
+								"$ref": "F2UC0000000000000107"
 							},
 							"attributeCompartment": {
-								"$ref": "F2UC0000000000000114"
+								"$ref": "F2UC0000000000000112"
 							},
 							"operationCompartment": {
-								"$ref": "F2UC0000000000000115"
+								"$ref": "F2UC0000000000000113"
 							},
 							"receptionCompartment": {
-								"$ref": "F2UC0000000000000116"
+								"$ref": "F2UC0000000000000114"
 							},
 							"templateParameterCompartment": {
-								"$ref": "F2UC0000000000000117"
+								"$ref": "F2UC0000000000000115"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
-								"$ref": "F2UC0000000000000118"
+								"$ref": "F2UC0000000000000116"
 							}
 						},
 						{
@@ -1834,7 +1862,7 @@
 								"$ref": "F2UC0000000000000003"
 							},
 							"model": {
-								"$ref": "F2UC0000000000000119"
+								"$ref": "F2UC0000000000000117"
 							},
 							"subViews": [
 								{
@@ -1844,7 +1872,7 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"subViews": [
 										{
@@ -1854,9 +1882,9 @@
 												"$ref": "F2UC0000000000000121"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 610,
-											"width": 230,
+											"left": 280,
+											"top": 700,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -1867,11 +1895,11 @@
 												"$ref": "F2UC0000000000000121"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 616,
-											"width": 230,
+											"left": 280,
+											"top": 706,
+											"width": 300,
 											"height": 13,
-											"text": "Керувати меню"
+											"text": "Видати замовлення за QR-кодом"
 										},
 										{
 											"_type": "LabelView",
@@ -1880,9 +1908,9 @@
 												"$ref": "F2UC0000000000000121"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 610,
-											"width": 230,
+											"left": 280,
+											"top": 700,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -1894,17 +1922,17 @@
 												"$ref": "F2UC0000000000000121"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 610,
-											"width": 230,
+											"left": 280,
+											"top": 700,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
-									"width": 230,
+									"left": 280,
+									"top": 700,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000122"
@@ -1926,11 +1954,11 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
+									"left": 280,
+									"top": 700,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1942,11 +1970,11 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
+									"left": 280,
+									"top": 700,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1958,11 +1986,11 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
+									"left": 280,
+									"top": 700,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1974,11 +2002,11 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
+									"left": 280,
+									"top": 700,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -1990,22 +2018,21 @@
 										"$ref": "F2UC0000000000000120"
 									},
 									"model": {
-										"$ref": "F2UC0000000000000119"
+										"$ref": "F2UC0000000000000117"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 610,
+									"left": 280,
+									"top": 700,
 									"width": 10,
-									"height": 10,
-									"visible": false
+									"height": 10
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 610,
-							"width": 230,
-							"height": 60,
+							"left": 280,
+							"top": 700,
+							"width": 300,
+							"height": 92,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000121"
 							},
@@ -2021,6 +2048,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000129"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000130"
 							}
@@ -2052,9 +2082,9 @@
 												"$ref": "F2UC0000000000000133"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 690,
-											"width": 230,
+											"left": 280,
+											"top": 910,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -2065,11 +2095,11 @@
 												"$ref": "F2UC0000000000000133"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 696,
-											"width": 230,
+											"left": 280,
+											"top": 916,
+											"width": 300,
 											"height": 13,
-											"text": "Керувати персоналом"
+											"text": "Керувати меню"
 										},
 										{
 											"_type": "LabelView",
@@ -2078,9 +2108,9 @@
 												"$ref": "F2UC0000000000000133"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 690,
-											"width": 230,
+											"left": 280,
+											"top": 910,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -2092,17 +2122,17 @@
 												"$ref": "F2UC0000000000000133"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 690,
-											"width": 230,
+											"left": 280,
+											"top": 910,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
-									"width": 230,
+									"left": 280,
+									"top": 910,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000134"
@@ -2127,8 +2157,8 @@
 										"$ref": "F2UC0000000000000131"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
+									"left": 280,
+									"top": 910,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2143,8 +2173,8 @@
 										"$ref": "F2UC0000000000000131"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
+									"left": 280,
+									"top": 910,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2159,8 +2189,8 @@
 										"$ref": "F2UC0000000000000131"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
+									"left": 280,
+									"top": 910,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2175,8 +2205,8 @@
 										"$ref": "F2UC0000000000000131"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
+									"left": 280,
+									"top": 910,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2191,8 +2221,8 @@
 										"$ref": "F2UC0000000000000131"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 690,
+									"left": 280,
+									"top": 910,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2200,9 +2230,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 690,
-							"width": 230,
+							"left": 280,
+							"top": 910,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000133"
@@ -2219,6 +2249,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000141"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000142"
 							}
@@ -2250,9 +2283,9 @@
 												"$ref": "F2UC0000000000000145"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 770,
-											"width": 230,
+											"left": 280,
+											"top": 1020,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -2263,11 +2296,11 @@
 												"$ref": "F2UC0000000000000145"
 											},
 											"font": "Arial;13;1",
-											"left": 240,
-											"top": 776,
-											"width": 230,
+											"left": 280,
+											"top": 1026,
+											"width": 300,
 											"height": 13,
-											"text": "Переглянути аналітику"
+											"text": "Керувати персоналом"
 										},
 										{
 											"_type": "LabelView",
@@ -2276,9 +2309,9 @@
 												"$ref": "F2UC0000000000000145"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 770,
-											"width": 230,
+											"left": 280,
+											"top": 1020,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -2290,17 +2323,17 @@
 												"$ref": "F2UC0000000000000145"
 											},
 											"font": "Arial;13;0",
-											"left": 240,
-											"top": 770,
-											"width": 230,
+											"left": 280,
+											"top": 1020,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
-									"width": 230,
+									"left": 280,
+									"top": 1020,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000146"
@@ -2325,8 +2358,8 @@
 										"$ref": "F2UC0000000000000143"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
+									"left": 280,
+									"top": 1020,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2341,8 +2374,8 @@
 										"$ref": "F2UC0000000000000143"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
+									"left": 280,
+									"top": 1020,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2357,8 +2390,8 @@
 										"$ref": "F2UC0000000000000143"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
+									"left": 280,
+									"top": 1020,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2373,8 +2406,8 @@
 										"$ref": "F2UC0000000000000143"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
+									"left": 280,
+									"top": 1020,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2389,8 +2422,8 @@
 										"$ref": "F2UC0000000000000143"
 									},
 									"font": "Arial;13;0",
-									"left": 240,
-									"top": 770,
+									"left": 280,
+									"top": 1020,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2398,9 +2431,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 240,
-							"top": 770,
-							"width": 230,
+							"left": 280,
+							"top": 1020,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000145"
@@ -2417,6 +2450,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000153"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000154"
 							}
@@ -2448,9 +2484,9 @@
 												"$ref": "F2UC0000000000000157"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 90,
-											"width": 230,
+											"left": 280,
+											"top": 1130,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										},
@@ -2461,11 +2497,11 @@
 												"$ref": "F2UC0000000000000157"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 96,
-											"width": 230,
+											"left": 280,
+											"top": 1136,
+											"width": 300,
 											"height": 13,
-											"text": "Розпізнати зображення"
+											"text": "Переглянути аналітику"
 										},
 										{
 											"_type": "LabelView",
@@ -2474,9 +2510,9 @@
 												"$ref": "F2UC0000000000000157"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 90,
-											"width": 230,
+											"left": 280,
+											"top": 1130,
+											"width": 300,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -2488,17 +2524,17 @@
 												"$ref": "F2UC0000000000000157"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 90,
-											"width": 230,
+											"left": 280,
+											"top": 1130,
+											"width": 300,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
-									"width": 230,
+									"left": 280,
+									"top": 1130,
+									"width": 300,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000158"
@@ -2523,8 +2559,8 @@
 										"$ref": "F2UC0000000000000155"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
+									"left": 280,
+									"top": 1130,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2539,8 +2575,8 @@
 										"$ref": "F2UC0000000000000155"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
+									"left": 280,
+									"top": 1130,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2555,8 +2591,8 @@
 										"$ref": "F2UC0000000000000155"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
+									"left": 280,
+									"top": 1130,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2571,8 +2607,8 @@
 										"$ref": "F2UC0000000000000155"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
+									"left": 280,
+									"top": 1130,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2587,8 +2623,8 @@
 										"$ref": "F2UC0000000000000155"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 90,
+									"left": 280,
+									"top": 1130,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2596,9 +2632,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 90,
-							"width": 230,
+							"left": 280,
+							"top": 1130,
+							"width": 300,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000157"
@@ -2615,6 +2651,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000165"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000166"
 							}
@@ -2646,9 +2685,9 @@
 												"$ref": "F2UC0000000000000169"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 180,
-											"width": 260,
+											"left": 680,
+											"top": 100,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										},
@@ -2659,11 +2698,11 @@
 												"$ref": "F2UC0000000000000169"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 186,
-											"width": 260,
+											"left": 680,
+											"top": 106,
+											"width": 320,
 											"height": 13,
-											"text": "Перевірити позицію з низькою впевненістю"
+											"text": "Розпізнати зображення"
 										},
 										{
 											"_type": "LabelView",
@@ -2672,9 +2711,9 @@
 												"$ref": "F2UC0000000000000169"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 180,
-											"width": 260,
+											"left": 680,
+											"top": 100,
+											"width": 320,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -2686,17 +2725,17 @@
 												"$ref": "F2UC0000000000000169"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 180,
-											"width": 260,
+											"left": 680,
+											"top": 100,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
-									"width": 260,
+									"left": 680,
+									"top": 100,
+									"width": 320,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000170"
@@ -2721,8 +2760,8 @@
 										"$ref": "F2UC0000000000000167"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
+									"left": 680,
+									"top": 100,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2737,8 +2776,8 @@
 										"$ref": "F2UC0000000000000167"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
+									"left": 680,
+									"top": 100,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2753,8 +2792,8 @@
 										"$ref": "F2UC0000000000000167"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
+									"left": 680,
+									"top": 100,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2769,8 +2808,8 @@
 										"$ref": "F2UC0000000000000167"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
+									"left": 680,
+									"top": 100,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2785,8 +2824,8 @@
 										"$ref": "F2UC0000000000000167"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 180,
+									"left": 680,
+									"top": 100,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2794,9 +2833,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 180,
-							"width": 260,
+							"left": 680,
+							"top": 100,
+							"width": 320,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000169"
@@ -2813,6 +2852,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000177"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000178"
 							}
@@ -2844,9 +2886,9 @@
 												"$ref": "F2UC0000000000000181"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 270,
-											"width": 230,
+											"left": 680,
+											"top": 250,
+											"width": 340,
 											"height": 13,
 											"visible": false
 										},
@@ -2857,11 +2899,11 @@
 												"$ref": "F2UC0000000000000181"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 276,
-											"width": 230,
+											"left": 680,
+											"top": 256,
+											"width": 340,
 											"height": 13,
-											"text": "Створити лот вручну"
+											"text": "Перевірити позицію з низькою впевненістю"
 										},
 										{
 											"_type": "LabelView",
@@ -2870,9 +2912,9 @@
 												"$ref": "F2UC0000000000000181"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 270,
-											"width": 230,
+											"left": 680,
+											"top": 250,
+											"width": 340,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -2884,17 +2926,17 @@
 												"$ref": "F2UC0000000000000181"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 270,
-											"width": 230,
+											"left": 680,
+											"top": 250,
+											"width": 340,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
-									"width": 230,
+									"left": 680,
+									"top": 250,
+									"width": 340,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000182"
@@ -2919,8 +2961,8 @@
 										"$ref": "F2UC0000000000000179"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
+									"left": 680,
+									"top": 250,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2935,8 +2977,8 @@
 										"$ref": "F2UC0000000000000179"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
+									"left": 680,
+									"top": 250,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2951,8 +2993,8 @@
 										"$ref": "F2UC0000000000000179"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
+									"left": 680,
+									"top": 250,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2967,8 +3009,8 @@
 										"$ref": "F2UC0000000000000179"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
+									"left": 680,
+									"top": 250,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2983,8 +3025,8 @@
 										"$ref": "F2UC0000000000000179"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 270,
+									"left": 680,
+									"top": 250,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -2992,9 +3034,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 270,
-							"width": 230,
+							"left": 680,
+							"top": 250,
+							"width": 340,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000181"
@@ -3011,6 +3053,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000189"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000190"
 							}
@@ -3042,9 +3087,9 @@
 												"$ref": "F2UC0000000000000193"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 400,
-											"width": 230,
+											"left": 680,
+											"top": 640,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										},
@@ -3055,9 +3100,9 @@
 												"$ref": "F2UC0000000000000193"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 406,
-											"width": 230,
+											"left": 680,
+											"top": 646,
+											"width": 320,
 											"height": 13,
 											"text": "Знайти замовлення за кодом"
 										},
@@ -3068,9 +3113,9 @@
 												"$ref": "F2UC0000000000000193"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 400,
-											"width": 230,
+											"left": 680,
+											"top": 640,
+											"width": 320,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -3082,17 +3127,17 @@
 												"$ref": "F2UC0000000000000193"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 400,
-											"width": 230,
+											"left": 680,
+											"top": 640,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
-									"width": 230,
+									"left": 680,
+									"top": 640,
+									"width": 320,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000194"
@@ -3117,8 +3162,8 @@
 										"$ref": "F2UC0000000000000191"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
+									"left": 680,
+									"top": 640,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3133,8 +3178,8 @@
 										"$ref": "F2UC0000000000000191"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
+									"left": 680,
+									"top": 640,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3149,8 +3194,8 @@
 										"$ref": "F2UC0000000000000191"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
+									"left": 680,
+									"top": 640,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3165,8 +3210,8 @@
 										"$ref": "F2UC0000000000000191"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
+									"left": 680,
+									"top": 640,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3181,8 +3226,8 @@
 										"$ref": "F2UC0000000000000191"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 400,
+									"left": 680,
+									"top": 640,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3190,9 +3235,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 400,
-							"width": 230,
+							"left": 680,
+							"top": 640,
+							"width": 320,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000193"
@@ -3209,6 +3254,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000201"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000202"
 							}
@@ -3240,9 +3288,9 @@
 												"$ref": "F2UC0000000000000205"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 480,
-											"width": 250,
+											"left": 680,
+											"top": 760,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										},
@@ -3253,9 +3301,9 @@
 												"$ref": "F2UC0000000000000205"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 486,
-											"width": 250,
+											"left": 680,
+											"top": 766,
+											"width": 320,
 											"height": 13,
 											"text": "Ввести код підтвердження вручну"
 										},
@@ -3266,9 +3314,9 @@
 												"$ref": "F2UC0000000000000205"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 480,
-											"width": 250,
+											"left": 680,
+											"top": 760,
+											"width": 320,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -3280,17 +3328,17 @@
 												"$ref": "F2UC0000000000000205"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 480,
-											"width": 250,
+											"left": 680,
+											"top": 760,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
-									"width": 250,
+									"left": 680,
+									"top": 760,
+									"width": 320,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000206"
@@ -3315,8 +3363,8 @@
 										"$ref": "F2UC0000000000000203"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
+									"left": 680,
+									"top": 760,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3331,8 +3379,8 @@
 										"$ref": "F2UC0000000000000203"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
+									"left": 680,
+									"top": 760,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3347,8 +3395,8 @@
 										"$ref": "F2UC0000000000000203"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
+									"left": 680,
+									"top": 760,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3363,8 +3411,8 @@
 										"$ref": "F2UC0000000000000203"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
+									"left": 680,
+									"top": 760,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3379,8 +3427,8 @@
 										"$ref": "F2UC0000000000000203"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 480,
+									"left": 680,
+									"top": 760,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3388,9 +3436,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 480,
-							"width": 250,
+							"left": 680,
+							"top": 760,
+							"width": 320,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000205"
@@ -3407,6 +3455,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000213"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000214"
 							}
@@ -3438,9 +3489,9 @@
 												"$ref": "F2UC0000000000000217"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 560,
-											"width": 250,
+											"left": 680,
+											"top": 880,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										},
@@ -3451,9 +3502,9 @@
 												"$ref": "F2UC0000000000000217"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 566,
-											"width": 250,
+											"left": 680,
+											"top": 886,
+											"width": 320,
 											"height": 13,
 											"text": "Видати після завершення вікна"
 										},
@@ -3464,9 +3515,9 @@
 												"$ref": "F2UC0000000000000217"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 560,
-											"width": 250,
+											"left": 680,
+											"top": 880,
+											"width": 320,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -3478,17 +3529,17 @@
 												"$ref": "F2UC0000000000000217"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 560,
-											"width": 250,
+											"left": 680,
+											"top": 880,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
-									"width": 250,
+									"left": 680,
+									"top": 880,
+									"width": 320,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000218"
@@ -3513,8 +3564,8 @@
 										"$ref": "F2UC0000000000000215"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
+									"left": 680,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3529,8 +3580,8 @@
 										"$ref": "F2UC0000000000000215"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
+									"left": 680,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3545,8 +3596,8 @@
 										"$ref": "F2UC0000000000000215"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
+									"left": 680,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3561,8 +3612,8 @@
 										"$ref": "F2UC0000000000000215"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
+									"left": 680,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3577,8 +3628,8 @@
 										"$ref": "F2UC0000000000000215"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 560,
+									"left": 680,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3586,9 +3637,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 560,
-							"width": 250,
+							"left": 680,
+							"top": 880,
+							"width": 320,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000217"
@@ -3605,6 +3656,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000225"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000226"
 							}
@@ -3636,9 +3690,9 @@
 												"$ref": "F2UC0000000000000229"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 640,
-											"width": 210,
+											"left": 680,
+											"top": 1080,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										},
@@ -3649,11 +3703,11 @@
 												"$ref": "F2UC0000000000000229"
 											},
 											"font": "Arial;13;1",
-											"left": 830,
-											"top": 646,
-											"width": 210,
+											"left": 680,
+											"top": 1086,
+											"width": 320,
 											"height": 13,
-											"text": "Отримати фід лотів"
+											"text": "Сформувати QR-токен"
 										},
 										{
 											"_type": "LabelView",
@@ -3662,9 +3716,9 @@
 												"$ref": "F2UC0000000000000229"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 640,
-											"width": 210,
+											"left": 680,
+											"top": 1080,
+											"width": 320,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -3676,17 +3730,17 @@
 												"$ref": "F2UC0000000000000229"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 640,
-											"width": 210,
+											"left": 680,
+											"top": 1080,
+											"width": 320,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
-									"width": 210,
+									"left": 680,
+									"top": 1080,
+									"width": 320,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000230"
@@ -3711,8 +3765,8 @@
 										"$ref": "F2UC0000000000000227"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
+									"left": 680,
+									"top": 1080,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3727,8 +3781,8 @@
 										"$ref": "F2UC0000000000000227"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
+									"left": 680,
+									"top": 1080,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3743,8 +3797,8 @@
 										"$ref": "F2UC0000000000000227"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
+									"left": 680,
+									"top": 1080,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3759,8 +3813,8 @@
 										"$ref": "F2UC0000000000000227"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
+									"left": 680,
+									"top": 1080,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3775,8 +3829,8 @@
 										"$ref": "F2UC0000000000000227"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 640,
+									"left": 680,
+									"top": 1080,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3784,9 +3838,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 830,
-							"top": 640,
-							"width": 210,
+							"left": 680,
+							"top": 1080,
+							"width": 320,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000229"
@@ -3803,6 +3857,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000237"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000238"
 							}
@@ -3834,9 +3891,9 @@
 												"$ref": "F2UC0000000000000241"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 720,
-											"width": 210,
+											"left": 1100,
+											"top": 880,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										},
@@ -3847,11 +3904,11 @@
 												"$ref": "F2UC0000000000000241"
 											},
 											"font": "Arial;13;1",
-											"left": 830,
-											"top": 726,
-											"width": 210,
+											"left": 1100,
+											"top": 886,
+											"width": 280,
 											"height": 13,
-											"text": "Підтвердити покупку"
+											"text": "Отримати фід лотів"
 										},
 										{
 											"_type": "LabelView",
@@ -3860,9 +3917,9 @@
 												"$ref": "F2UC0000000000000241"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 720,
-											"width": 210,
+											"left": 1100,
+											"top": 880,
+											"width": 280,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -3874,17 +3931,17 @@
 												"$ref": "F2UC0000000000000241"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 720,
-											"width": 210,
+											"left": 1100,
+											"top": 880,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
-									"width": 210,
+									"left": 1100,
+									"top": 880,
+									"width": 280,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000242"
@@ -3909,8 +3966,8 @@
 										"$ref": "F2UC0000000000000239"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
+									"left": 1100,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3925,8 +3982,8 @@
 										"$ref": "F2UC0000000000000239"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
+									"left": 1100,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3941,8 +3998,8 @@
 										"$ref": "F2UC0000000000000239"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
+									"left": 1100,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3957,8 +4014,8 @@
 										"$ref": "F2UC0000000000000239"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
+									"left": 1100,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3973,8 +4030,8 @@
 										"$ref": "F2UC0000000000000239"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 720,
+									"left": 1100,
+									"top": 880,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -3982,9 +4039,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 830,
-							"top": 720,
-							"width": 210,
+							"left": 1100,
+							"top": 880,
+							"width": 280,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000241"
@@ -4001,6 +4058,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000249"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000250"
 							}
@@ -4032,9 +4092,9 @@
 												"$ref": "F2UC0000000000000253"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 800,
-											"width": 210,
+											"left": 1100,
+											"top": 1000,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										},
@@ -4045,11 +4105,11 @@
 												"$ref": "F2UC0000000000000253"
 											},
 											"font": "Arial;13;1",
-											"left": 830,
-											"top": 806,
-											"width": 210,
+											"left": 1100,
+											"top": 1006,
+											"width": 280,
 											"height": 13,
-											"text": "Отримати QR-код замовлення"
+											"text": "Підтвердити покупку"
 										},
 										{
 											"_type": "LabelView",
@@ -4058,9 +4118,9 @@
 												"$ref": "F2UC0000000000000253"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 800,
-											"width": 210,
+											"left": 1100,
+											"top": 1000,
+											"width": 280,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -4072,17 +4132,17 @@
 												"$ref": "F2UC0000000000000253"
 											},
 											"font": "Arial;13;0",
-											"left": 830,
-											"top": 800,
-											"width": 210,
+											"left": 1100,
+											"top": 1000,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
-									"width": 210,
+									"left": 1100,
+									"top": 1000,
+									"width": 280,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000254"
@@ -4107,8 +4167,8 @@
 										"$ref": "F2UC0000000000000251"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
+									"left": 1100,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4123,8 +4183,8 @@
 										"$ref": "F2UC0000000000000251"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
+									"left": 1100,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4139,8 +4199,8 @@
 										"$ref": "F2UC0000000000000251"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
+									"left": 1100,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4155,8 +4215,8 @@
 										"$ref": "F2UC0000000000000251"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
+									"left": 1100,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4171,8 +4231,8 @@
 										"$ref": "F2UC0000000000000251"
 									},
 									"font": "Arial;13;0",
-									"left": 830,
-									"top": 800,
+									"left": 1100,
+									"top": 1000,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4180,9 +4240,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 830,
-							"top": 800,
-							"width": 210,
+							"left": 1100,
+							"top": 1000,
+							"width": 280,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000253"
@@ -4199,6 +4259,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000261"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000262"
 							}
@@ -4230,9 +4293,9 @@
 												"$ref": "F2UC0000000000000265"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 760,
-											"width": 230,
+											"left": 1100,
+											"top": 1120,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										},
@@ -4243,11 +4306,11 @@
 												"$ref": "F2UC0000000000000265"
 											},
 											"font": "Arial;13;1",
-											"left": 560,
-											"top": 766,
-											"width": 230,
+											"left": 1100,
+											"top": 1126,
+											"width": 280,
 											"height": 13,
-											"text": "Сформувати QR-токен"
+											"text": "Отримати QR-код замовлення"
 										},
 										{
 											"_type": "LabelView",
@@ -4256,9 +4319,9 @@
 												"$ref": "F2UC0000000000000265"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 760,
-											"width": 230,
+											"left": 1100,
+											"top": 1120,
+											"width": 280,
 											"height": 13,
 											"text": "(from Модель прецедентів)",
 											"visible": false
@@ -4270,17 +4333,17 @@
 												"$ref": "F2UC0000000000000265"
 											},
 											"font": "Arial;13;0",
-											"left": 560,
-											"top": 760,
-											"width": 230,
+											"left": 1100,
+											"top": 1120,
+											"width": 280,
 											"height": 13,
 											"visible": false
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
-									"width": 230,
+									"left": 1100,
+									"top": 1120,
+									"width": 280,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "F2UC0000000000000266"
@@ -4305,8 +4368,8 @@
 										"$ref": "F2UC0000000000000263"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
+									"left": 1100,
+									"top": 1120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4321,8 +4384,8 @@
 										"$ref": "F2UC0000000000000263"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
+									"left": 1100,
+									"top": 1120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4337,8 +4400,8 @@
 										"$ref": "F2UC0000000000000263"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
+									"left": 1100,
+									"top": 1120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4353,8 +4416,8 @@
 										"$ref": "F2UC0000000000000263"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
+									"left": 1100,
+									"top": 1120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4369,8 +4432,8 @@
 										"$ref": "F2UC0000000000000263"
 									},
 									"font": "Arial;13;0",
-									"left": 560,
-									"top": 760,
+									"left": 1100,
+									"top": 1120,
 									"width": 10,
 									"height": 10,
 									"visible": false
@@ -4378,9 +4441,9 @@
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 560,
-							"top": 760,
-							"width": 230,
+							"left": 1100,
+							"top": 1120,
+							"width": 280,
 							"height": 60,
 							"nameCompartment": {
 								"$ref": "F2UC0000000000000265"
@@ -4397,6 +4460,9 @@
 							"templateParameterCompartment": {
 								"$ref": "F2UC0000000000000273"
 							},
+							"suppressAttributes": true,
+							"suppressOperations": true,
+							"suppressReceptions": true,
 							"extensionPointCompartment": {
 								"$ref": "F2UC0000000000000274"
 							}
@@ -4650,7 +4716,7 @@
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;355:100",
+							"points": "108:422;399:149",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000279"
 							},
@@ -4935,7 +5001,7 @@
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;355:206",
+							"points": "108:430;384:259",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000294"
 							},
@@ -5214,13 +5280,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000082"
+								"$ref": "F2UC0000000000000094"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;355:310",
+							"points": "108:450;321:489",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000309"
 							},
@@ -5499,13 +5565,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000180"
+								"$ref": "F2UC0000000000000082"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;675:300",
+							"points": "108:442;304:416",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000324"
 							},
@@ -5784,13 +5850,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000094"
+								"$ref": "F2UC0000000000000106"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;355:390",
+							"points": "108:457;375:592",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000339"
 							},
@@ -6069,13 +6135,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000108"
+								"$ref": "F2UC0000000000000120"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000012"
 							},
 							"lineStyle": 1,
-							"points": "84:275;355:486",
+							"points": "108:465;395:701",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000354"
 							},
@@ -6354,13 +6420,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000120"
+								"$ref": "F2UC0000000000000132"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000023"
 							},
 							"lineStyle": 1,
-							"points": "84:685;355:640",
+							"points": "108:1038;347:965",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000369"
 							},
@@ -6639,13 +6705,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000132"
+								"$ref": "F2UC0000000000000144"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000023"
 							},
 							"lineStyle": 1,
-							"points": "84:685;355:720",
+							"points": "108:1045;280:1048",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000384"
 							},
@@ -6924,13 +6990,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000144"
+								"$ref": "F2UC0000000000000156"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000023"
 							},
 							"lineStyle": 1,
-							"points": "84:685;355:800",
+							"points": "108:1053;353:1134",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000399"
 							},
@@ -7051,7 +7117,7 @@
 								"$ref": "F2UC0000000000000023"
 							},
 							"lineStyle": 1,
-							"points": "84:685;84:275",
+							"points": "84:1000;84:490",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000412"
 							},
@@ -7308,10 +7374,10 @@
 								"$ref": "F2UC0000000000000034"
 							},
 							"tail": {
-								"$ref": "F2UC0000000000000156"
+								"$ref": "F2UC0000000000000168"
 							},
 							"lineStyle": 1,
-							"points": "675:120;1164:155",
+							"points": "994:138;1500:164",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000419"
 							},
@@ -7590,13 +7656,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000228"
+								"$ref": "F2UC0000000000000240"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000045"
 							},
 							"lineStyle": 1,
-							"points": "1164:745;935:670",
+							"points": "1500:1015;1305:937",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000434"
 							},
@@ -7875,13 +7941,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000240"
+								"$ref": "F2UC0000000000000252"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000045"
 							},
 							"lineStyle": 1,
-							"points": "1164:745;935:750",
+							"points": "1500:1025;1380:1028",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000449"
 							},
@@ -8160,13 +8226,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000252"
+								"$ref": "F2UC0000000000000264"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000045"
 							},
 							"lineStyle": 1,
-							"points": "1164:745;935:830",
+							"points": "1500:1036;1301:1123",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000464"
 							},
@@ -8280,13 +8346,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000156"
+								"$ref": "F2UC0000000000000168"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000070"
 							},
 							"lineStyle": 1,
-							"points": "355:206;675:120",
+							"points": "525:207;742:154",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000477"
 							},
@@ -8378,10 +8444,10 @@
 								"$ref": "F2UC0000000000000070"
 							},
 							"tail": {
-								"$ref": "F2UC0000000000000168"
+								"$ref": "F2UC0000000000000180"
 							},
 							"lineStyle": 1,
-							"points": "690:210;355:206",
+							"points": "709:263;559:245",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000482"
 							},
@@ -8473,10 +8539,10 @@
 								"$ref": "F2UC0000000000000070"
 							},
 							"tail": {
-								"$ref": "F2UC0000000000000180"
+								"$ref": "F2UC0000000000000082"
 							},
 							"lineStyle": 1,
-							"points": "675:300;355:206",
+							"points": "430:370;430:260",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000487"
 							},
@@ -8568,10 +8634,10 @@
 								"$ref": "F2UC0000000000000192"
 							},
 							"tail": {
-								"$ref": "F2UC0000000000000108"
+								"$ref": "F2UC0000000000000120"
 							},
 							"lineStyle": 1,
-							"points": "355:486;675:430",
+							"points": "551:712;714:688",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000492"
 							},
@@ -8660,13 +8726,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000108"
+								"$ref": "F2UC0000000000000120"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000204"
 							},
 							"lineStyle": 1,
-							"points": "685:510;355:486",
+							"points": "714:772;551:748",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000497"
 							},
@@ -8755,13 +8821,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000108"
+								"$ref": "F2UC0000000000000120"
 							},
 							"tail": {
 								"$ref": "F2UC0000000000000216"
 							},
 							"lineStyle": 1,
-							"points": "685:590;355:486",
+							"points": "777:882;492:757",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000502"
 							},
@@ -8850,13 +8916,13 @@
 							],
 							"font": "Arial;13;0",
 							"head": {
-								"$ref": "F2UC0000000000000264"
+								"$ref": "F2UC0000000000000228"
 							},
 							"tail": {
-								"$ref": "F2UC0000000000000240"
+								"$ref": "F2UC0000000000000252"
 							},
 							"lineStyle": 1,
-							"points": "935:750;675:790",
+							"points": "1138:1050;949:1088",
 							"nameLabel": {
 								"$ref": "F2UC0000000000000507"
 							},
@@ -8964,7 +9030,7 @@
 									"$ref": "F2UC0000000000000305"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000081"
+									"$ref": "F2UC0000000000000093"
 								},
 								"navigable": "navigable"
 							}
@@ -8992,7 +9058,7 @@
 									"$ref": "F2UC0000000000000320"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000179"
+									"$ref": "F2UC0000000000000081"
 								},
 								"navigable": "navigable"
 							}
@@ -9020,7 +9086,7 @@
 									"$ref": "F2UC0000000000000335"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000093"
+									"$ref": "F2UC0000000000000105"
 								},
 								"navigable": "navigable"
 							}
@@ -9048,7 +9114,7 @@
 									"$ref": "F2UC0000000000000350"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000105"
+									"$ref": "F2UC0000000000000117"
 								},
 								"navigable": "navigable"
 							}
@@ -9086,7 +9152,7 @@
 									"$ref": "F2UC0000000000000365"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000119"
+									"$ref": "F2UC0000000000000131"
 								},
 								"navigable": "navigable"
 							}
@@ -9114,7 +9180,7 @@
 									"$ref": "F2UC0000000000000380"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000131"
+									"$ref": "F2UC0000000000000143"
 								},
 								"navigable": "navigable"
 							}
@@ -9142,7 +9208,7 @@
 									"$ref": "F2UC0000000000000395"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000143"
+									"$ref": "F2UC0000000000000155"
 								},
 								"navigable": "navigable"
 							}
@@ -9202,7 +9268,7 @@
 									"$ref": "F2UC0000000000000430"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000227"
+									"$ref": "F2UC0000000000000239"
 								},
 								"navigable": "navigable"
 							}
@@ -9230,7 +9296,7 @@
 									"$ref": "F2UC0000000000000445"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000239"
+									"$ref": "F2UC0000000000000251"
 								},
 								"navigable": "navigable"
 							}
@@ -9258,7 +9324,7 @@
 									"$ref": "F2UC0000000000000460"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000251"
+									"$ref": "F2UC0000000000000263"
 								},
 								"navigable": "navigable"
 							}
@@ -9292,7 +9358,7 @@
 								"$ref": "F2UC0000000000000067"
 							},
 							"target": {
-								"$ref": "F2UC0000000000000155"
+								"$ref": "F2UC0000000000000167"
 							}
 						}
 					],
@@ -9321,12 +9387,41 @@
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
+					"name": "Створити лот вручну",
+					"ownedElements": [
+						{
+							"_type": "UMLExtend",
+							"_id": "F2UC0000000000000485",
+							"_parent": {
+								"$ref": "F2UC0000000000000081"
+							},
+							"source": {
+								"$ref": "F2UC0000000000000081"
+							},
+							"target": {
+								"$ref": "F2UC0000000000000067"
+							},
+							"extensionLocations": [
+								{
+									"$ref": "F2UC0000000000000069"
+								}
+							],
+							"condition": "статус завдання failed"
+						}
+					]
+				},
+				{
+					"_type": "UMLUseCase",
+					"_id": "F2UC0000000000000093",
+					"_parent": {
+						"$ref": "F2UC0000000000000002"
+					},
 					"name": "Опублікувати лот",
 					"ownedElements": []
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000093",
+					"_id": "F2UC0000000000000105",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9335,7 +9430,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000105",
+					"_id": "F2UC0000000000000117",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9345,10 +9440,10 @@
 							"_type": "UMLInclude",
 							"_id": "F2UC0000000000000490",
 							"_parent": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"source": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"target": {
 								"$ref": "F2UC0000000000000191"
@@ -9358,17 +9453,17 @@
 					"extensionPoints": [
 						{
 							"_type": "UMLExtensionPoint",
-							"_id": "F2UC0000000000000106",
+							"_id": "F2UC0000000000000118",
 							"_parent": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"name": "QR-код не зчитується"
 						},
 						{
 							"_type": "UMLExtensionPoint",
-							"_id": "F2UC0000000000000107",
+							"_id": "F2UC0000000000000119",
 							"_parent": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"name": "Вікно видачі завершено"
 						}
@@ -9376,7 +9471,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000119",
+					"_id": "F2UC0000000000000131",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9385,7 +9480,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000131",
+					"_id": "F2UC0000000000000143",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9394,7 +9489,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000143",
+					"_id": "F2UC0000000000000155",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9403,7 +9498,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000155",
+					"_id": "F2UC0000000000000167",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9413,7 +9508,7 @@
 							"_type": "UMLAssociation",
 							"_id": "F2UC0000000000000415",
 							"_parent": {
-								"$ref": "F2UC0000000000000155"
+								"$ref": "F2UC0000000000000167"
 							},
 							"end1": {
 								"_type": "UMLAssociationEnd",
@@ -9422,7 +9517,7 @@
 									"$ref": "F2UC0000000000000415"
 								},
 								"reference": {
-									"$ref": "F2UC0000000000000155"
+									"$ref": "F2UC0000000000000167"
 								}
 							},
 							"end2": {
@@ -9441,7 +9536,7 @@
 				},
 				{
 					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000167",
+					"_id": "F2UC0000000000000179",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9451,10 +9546,10 @@
 							"_type": "UMLExtend",
 							"_id": "F2UC0000000000000480",
 							"_parent": {
-								"$ref": "F2UC0000000000000167"
+								"$ref": "F2UC0000000000000179"
 							},
 							"source": {
-								"$ref": "F2UC0000000000000167"
+								"$ref": "F2UC0000000000000179"
 							},
 							"target": {
 								"$ref": "F2UC0000000000000067"
@@ -9465,35 +9560,6 @@
 								}
 							],
 							"condition": "впевненість < 0,7"
-						}
-					]
-				},
-				{
-					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000179",
-					"_parent": {
-						"$ref": "F2UC0000000000000002"
-					},
-					"name": "Створити лот вручну",
-					"ownedElements": [
-						{
-							"_type": "UMLExtend",
-							"_id": "F2UC0000000000000485",
-							"_parent": {
-								"$ref": "F2UC0000000000000179"
-							},
-							"source": {
-								"$ref": "F2UC0000000000000179"
-							},
-							"target": {
-								"$ref": "F2UC0000000000000067"
-							},
-							"extensionLocations": [
-								{
-									"$ref": "F2UC0000000000000069"
-								}
-							],
-							"condition": "статус завдання failed"
 						}
 					]
 				},
@@ -9524,11 +9590,11 @@
 								"$ref": "F2UC0000000000000203"
 							},
 							"target": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"extensionLocations": [
 								{
-									"$ref": "F2UC0000000000000106"
+									"$ref": "F2UC0000000000000118"
 								}
 							],
 							"condition": "QR-код не зчитується"
@@ -9553,11 +9619,11 @@
 								"$ref": "F2UC0000000000000215"
 							},
 							"target": {
-								"$ref": "F2UC0000000000000105"
+								"$ref": "F2UC0000000000000117"
 							},
 							"extensionLocations": [
 								{
-									"$ref": "F2UC0000000000000107"
+									"$ref": "F2UC0000000000000119"
 								}
 							],
 							"condition": "pickup_to < поточний час"
@@ -9570,12 +9636,21 @@
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
-					"name": "Отримати фід лотів",
+					"name": "Сформувати QR-токен",
 					"ownedElements": []
 				},
 				{
 					"_type": "UMLUseCase",
 					"_id": "F2UC0000000000000239",
+					"_parent": {
+						"$ref": "F2UC0000000000000002"
+					},
+					"name": "Отримати фід лотів",
+					"ownedElements": []
+				},
+				{
+					"_type": "UMLUseCase",
+					"_id": "F2UC0000000000000251",
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
@@ -9585,25 +9660,16 @@
 							"_type": "UMLInclude",
 							"_id": "F2UC0000000000000505",
 							"_parent": {
-								"$ref": "F2UC0000000000000239"
+								"$ref": "F2UC0000000000000251"
 							},
 							"source": {
-								"$ref": "F2UC0000000000000239"
+								"$ref": "F2UC0000000000000251"
 							},
 							"target": {
-								"$ref": "F2UC0000000000000263"
+								"$ref": "F2UC0000000000000227"
 							}
 						}
 					]
-				},
-				{
-					"_type": "UMLUseCase",
-					"_id": "F2UC0000000000000251",
-					"_parent": {
-						"$ref": "F2UC0000000000000002"
-					},
-					"name": "Отримати QR-код замовлення",
-					"ownedElements": []
 				},
 				{
 					"_type": "UMLUseCase",
@@ -9611,7 +9677,7 @@
 					"_parent": {
 						"$ref": "F2UC0000000000000002"
 					},
-					"name": "Сформувати QR-токен",
+					"name": "Отримати QR-код замовлення",
 					"ownedElements": []
 				}
 			]
