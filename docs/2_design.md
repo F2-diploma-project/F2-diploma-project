@@ -104,7 +104,7 @@
 B2C-модуль взаємодіє з B2B-системою за моделлю pull: самостійно забирає фід лотів і викликає ендпоінти створення замовлення та запиту QR-коду за REST-контрактом OpenAPI 3.1 з автентифікацією заголовком `X-API-Key`. Протоколи всіх зв'язків першого рівня наведено в таблиці 2.5, діаграму — на рисунку 2.1.
 
 ```mermaid
-flowchart LR
+flowchart TB
     admin["<b>Адміністратор закладу</b><br/>[Особа]<br/>Меню, лоти, касири, аналітика"]:::person
     cashier["<b>Касир</b><br/>[Особа]<br/>Публікація лотів, QR-видача"]:::person
     buyer["<b>Покупець</b><br/>[Особа]<br/>Замовлення в B2C-модулі"]:::person
@@ -255,7 +255,7 @@ flowchart TB
 Структуру побудовано за принципами чистої архітектури з п'ятьма шарами: Inbound (вхід), Application (сценарії), Domain (ядро), Ports (інтерфейси) та Outbound (адаптери й наскрізні сервіси). Залежності спрямовані до ядра: Inbound викликає Application, Application залежить лише від Domain і Ports, а адаптери шару Outbound реалізують порти за принципом Dependency Inversion та підключаються через Dependency Injection фреймворку NestJS. Завдяки цьому сценарії `ProcessRecognitionUseCase` і `MaintenanceUseCase` не імпортують класи адаптерів, а ядро можна перевіряти модульними тестами без мережі. Склад компонентів, їхню роль і зв'язок з вимогами подано в таблиці 2.8, діаграму — на рисунку 2.3. Черга Redis зображена двічі (на вході та на виході `MaintenanceUseCase`) лише для уникнення перетину ліній; це один і той самий контейнер. Виклики `ProcessRecognitionUseCase` до компонентів домену показано одним зв'язком із шаром Domain.
 
 ```mermaid
-flowchart TB
+flowchart LR
     rq[("<b>Redis (черга)</b><br/>[BullMQ]")]:::db
     prom["<b>Prometheus</b>"]:::cont
     vision["<b>Vision API</b><br/>[Зовнішня система]"]:::ext
@@ -273,25 +273,25 @@ flowchart TB
             filter["<b>JobExceptionFilter</b><br/>[ExceptionFilter]"]:::comp
         end
         subgraph APP["Application: сценарії"]
-            direction LR
+            direction TB
             cleanup["<b>MaintenanceUseCase</b>"]:::comp
             uc["<b>ProcessRecognitionUseCase</b>"]:::comp
             exif["<b>ImageSanitizer</b><br/>[sharp]"]:::comp
         end
         subgraph DOM["Domain: ядро"]
-            direction LR
+            direction TB
             rv["<b>VisionResponseValidator</b><br/>[JSON Schema]"]:::comp
             pol["<b>ConfidencePolicy</b><br/>[поріг 0,7]"]:::comp
             bun["<b>BundleSuggester</b>"]:::comp
         end
         subgraph PRT["Ports: інтерфейси"]
-            direction LR
+            direction TB
             ps["<b>ImageStoragePort</b>"]:::port
             pv["<b>VisionPort</b>"]:::port
             pr["<b>RecognitionRepositoryPort</b>"]:::port
         end
         subgraph OUT["Outbound: адаптери"]
-            direction LR
+            direction TB
             sa["<b>S3ImageStorageAdapter</b><br/>[AWS SDK]"]:::comp
             va["<b>VisionAdapter</b><br/>[Strategy, таймаут 10 с]"]:::comp
             ra["<b>PgRecognitionRepository</b><br/>[pg]"]:::comp
