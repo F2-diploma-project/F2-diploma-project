@@ -1,0 +1,8 @@
+{
+  // Перевірка документації (docs/): налаштування правил — у .markdownlint.json,
+  // власне правило термінології — у .markdownlint/no-slang.cjs.
+  // docs/PROGRESS.md — робочий журнал розробки, а не текст записки, тому не перевіряється.
+  "customRules": ["./.markdownlint/no-slang.cjs"],
+  "globs": ["README.md", "docs/**/*.md"],
+  "ignores": ["**/node_modules/**", "docs/PROGRESS.md"]
+}
