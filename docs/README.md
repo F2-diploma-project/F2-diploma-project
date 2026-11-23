@@ -37,7 +37,7 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 
 ## Розділ 2. Обґрунтування архітектурних рішень та проєктування системи
 
-Зведений документ Розділів 1 і 2 (Google Docs): [F2_Diploma_Розділи_1-2_Гуцуляк](https://docs.google.com/document/d/159GXVjlnWthSDzy-Xq6fgKu4ou8vem_2Ye1O8T54WO8/edit)
+Зведений документ Розділів 1 і 2 (Google Docs): [F2_Diploma_Розділи_1-2_Гуцуляк](https://docs.google.com/document/d/11yym7Yu2vg7pIggLXqZeeUuG1O88exjSY25eENWGJ3A/edit)
 
 Конвеєр перевірки документації: [Docs Quality Gate](../.github/workflows/docs-linter.yml) (markdownlint, правила в [`.markdownlint.json`](../.markdownlint.json)).
 

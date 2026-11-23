@@ -8,7 +8,7 @@
 
 ## Документація
 
-- Зведений документ Розділів 1 і 2 (Google Docs): [F2_Diploma_Розділи_1-2_Гуцуляк](https://docs.google.com/document/d/159GXVjlnWthSDzy-Xq6fgKu4ou8vem_2Ye1O8T54WO8/edit)
+- Зведений документ Розділів 1 і 2 (Google Docs): [F2_Diploma_Розділи_1-2_Гуцуляк](https://docs.google.com/document/d/11yym7Yu2vg7pIggLXqZeeUuG1O88exjSY25eENWGJ3A/edit)
 - Розділ 1. Аналіз предметної області та постановка задачі: [`docs/1_analysis.md`](docs/1_analysis.md)
 - Специфікація вимог (SRS): [`docs/srs.md`](docs/srs.md)
 - Розділ 2. Обґрунтування архітектурних рішень та проєктування системи: [`docs/2_design.md`](docs/2_design.md)
