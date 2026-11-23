@@ -11,9 +11,9 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | [`0_intro.md`](./0_intro.md) | Вступ (науковий апарат: актуальність, об'єкт, предмет, мета, завдання) | Заповнено |
 | [`1_analysis.md`](./1_analysis.md) | Розділ 1. Аналіз предметної області та постановка задачі дослідження | На рев'ю |
 | [`srs.md`](./srs.md) | Специфікація вимог до ПЗ (SRS, ISO/IEC/IEEE 29148) | Заповнено |
-| [`2_design.md`](./2_design.md) | Розділ 2. Архітектурне проєктування (C4 Model, ADR, ER-діаграма, специфікація API, алгоритми, інтеграційний аудит) | Done |
+| [`2_design.md`](./2_design.md) | Розділ 2. Обґрунтування архітектурних рішень та проєктування системи (стиль і патерни, C4 Model, AppSec, API і топологія маршрутів, Use Cases, ER-діаграма, інтеграційний аудит) | Done |
 | [`adr/`](./adr/) | Architecture Decision Records | ADR-001 затверджено |
-| [`3_implementation.md`](./3_implementation.md) | Розділ 3. Реалізація (інтерфейс, тестування, деплой) | Заплановано |
+| [`3_implementation.md`](./3_implementation.md) | Розділ 3. Реалізація (інтерфейс, тестування, розгортання) | Заплановано |
 | [`4_conclusions.md`](./4_conclusions.md) | Висновки | Заплановано |
 | [`proposal.md`](./proposal.md) | Thesis Proposal | Заповнено |
 
@@ -35,11 +35,16 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 
 Повний перелік вимог: [`srs.md`](./srs.md); вихідне формулювання — [`1_analysis.md`](./1_analysis.md), підрозділ 1.5.
 
-## Розділ 2. Архітектурне проєктування
+## Розділ 2. Обґрунтування архітектурних рішень та проєктування системи
+
+Зведений документ Розділів 1 і 2 (Google Docs): [F2_Diploma_Розділи_1-2_Гуцуляк](https://docs.google.com/document/d/11yym7Yu2vg7pIggLXqZeeUuG1O88exjSY25eENWGJ3A/edit)
+
+Конвеєр перевірки документації: [Docs Quality Gate](../.github/workflows/docs-linter.yml) (markdownlint, правила в [`.markdownlint.json`](../.markdownlint.json)).
 
 - [`srs.md`](./srs.md) — специфікація вимог з унікальними ідентифікаторами (SRS-FUN, SRS-NFR) і критеріями верифікації;
 - [`2_design.md`](./2_design.md) — C4 Model: [Context](./2_design.md#diagram-level1), [Container](./2_design.md#diagram-level2), [Component](./2_design.md#diagram-level3);
-- [`2_design.md`](./2_design.md#24-проєктування-та-документування-моделей-даних) — підрозділи 2.4–2.7: модель даних, контракти API, алгоритми, інтеграційний аудит;
+- [`2_design.md`](./2_design.md#21-обґрунтування-архітектурного-стилю-та-патернів-проєктування) — підрозділи 2.1–2.8: архітектурний стиль і патерни, C4 Model, серверне ядро й алгоритми, AppSec, контракти API і топологія маршрутів, Use Cases, модель даних, інтеграційний аудит;
+- [`uml/use-cases.mdj`](./uml/use-cases.mdj) — модель прецедентів StarUML;
 - [`api/openapi.yaml`](./api/openapi.yaml) — специфікація OpenAPI 3.1 для B2B API;
 - [`../contracts/b2c-contract.yaml`](../contracts/b2c-contract.yaml) — контракт обміну з B2C-модулем;
 - [`adr/0001-choice-of-technology.md`](./adr/0001-choice-of-technology.md) — ADR-001: вибір черги фонових задач.
@@ -49,11 +54,11 @@ B2B Sales Automation and Computer Vision-Based Inventory Recognition Information
 | № | Етап кваліфікаційної роботи | Термін виконання | Статус |
 | --- | --- | --- | --- |
 | 1 | Аналіз аналогів та формування технічного завдання | Жовтень 2026 | Done |
-| 2 | Обґрунтування технологічного стеку та узгодження REST API-контракту з B2C-модулем | Листопад 2026 | To Do |
-| 3 | Проєктування архітектури UML/C4 Model та схеми бази даних | Грудень 2026 | In Progress |
-| 4 | Алгоритмізація модуля Snap & Sell та черги фонових задач (BullMQ) | Січень 2027 | To Do |
-| 5 | Проєктування інтерфейсу мобільного застосунку та схеми розгортання (Docker/CI-CD) | Лютий 2027 | To Do |
-| 6 | Реалізація базового функціоналу мобільного застосунку (CRUD, ролі, QR) та фінансової аналітики | 1–20 березня 2027 | To Do |
+| 2 | Обґрунтування технологічного стеку та узгодження REST API-контракту з B2C-модулем | Листопад 2026 | In Progress |
+| 3 | Проєктування архітектури UML/C4 Model та схеми бази даних | Грудень 2026 | Done |
+| 4 | Алгоритмізація модуля Snap & Sell та черги фонових задач (BullMQ) | Січень 2027 | In Progress |
+| 5 | Проєктування інтерфейсу мобільного застосунку та схеми розгортання (Docker/CI-CD) | Лютий 2027 | In Progress |
+| 6 | Реалізація базового функціоналу мобільного застосунку (CRUD, ролі, QR) та фінансової аналітики | 1–20 березня 2027 | In Progress |
 | 7 | Інструментальний аудит коду (модульне та інтеграційне тестування) | 21 березня – 15 квітня 2027 | To Do |
 | 8 | Науково-практична апробація результатів (стаття/доповідь) | 16–30 квітня 2027 | To Do |
 | — | Фінальний нормоконтроль та передзахист | Травень 2027 | To Do |

@@ -2537,7 +2537,7 @@ components:
         photo_url:
           type: [string, 'null']
           format: uri
-          description: Фото лота (як у `VenueLot.photo_url`); `null`, якщо фото немає.
+          description: Фото лота (як у `Lot.photo_url` фіду B2C-модуля); `null`, якщо фото немає.
         quantity:
           type: integer
           minimum: 1

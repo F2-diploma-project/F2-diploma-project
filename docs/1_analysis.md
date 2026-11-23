@@ -143,28 +143,28 @@
 
 ### 1.5.2 Функціональні вимоги (Core Features)
 
-**Модуль розпізнавання та формування лотів (Snap & Sell)**
+#### Модуль розпізнавання та формування лотів (Snap & Sell)
 
 - Приймати фотографію вітрини або залишків від мобільного застосунку, ставити завдання розпізнавання в чергу BullMQ із асинхронним поверненням статусу, розпізнавати товарні позиції через OpenAI Vision API або Google Gemini Vision із валідацією структурованого результату за схемою та генерувати чернетки лотів із можливістю ручного виправлення.
 - Генерувати смарт-бандли (комбіновані пропозиції) на основі розпізнаних позицій.
 
-**Модуль каталогу**
+#### Модуль каталогу
 
 - Виконувати CRUD-операції над меню, категоріями та лотами закладу.
 
-**Модуль автентифікації та доступу**
+#### Модуль автентифікації та доступу
 
 - Автентифікувати користувачів та розмежовувати права за рольовою моделлю (адміністратор закладу, касир).
 
-**Модуль замовлень та видачі**
+#### Модуль замовлень та видачі
 
 - Генерувати QR-коди замовлень з одноразовим токеном і підтверджувати видачу скануванням із фіксацією у журналі.
 
-**Модуль фінансової аналітики**
+#### Модуль фінансової аналітики
 
 - Обчислювати та відображати показники відновленого доходу, кількості врятованих товарів і динаміку продажів із кешуванням агрегатів у Redis.
 
-**Модуль інтеграції**
+#### Модуль інтеграції
 
 - Публікувати лоти та синхронізувати стан замовлень з B2C-модулем через спільний REST API-контракт (OpenAPI 3.1).
 
@@ -186,7 +186,7 @@
 | Комплаєнс | Мінімізація та строк зберігання зображень | видалення зображень після завершення розпізнавання, але не пізніше ніж через 30 діб; відповідність принципам GDPR |
 | Надійність | Відмовостійкість черги | до 3 повторних спроб з експоненційною затримкою; черга недоставлених завдань (dead-letter); ідемпотентні споживачі |
 | Надійність | Резервне копіювання PostgreSQL | щодобове копіювання; RPO ≤ 24 год; RTO ≤ 1 год |
-| Надійність | Моніторинг стану залежностей | ендпоінт /health перевіряє PostgreSQL та Redis; p95 ≤ 100 мс |
+| Надійність | Моніторинг стану залежностей | операція `/health` перевіряє PostgreSQL та Redis; p95 ≤ 100 мс |
 | Інфраструктура | Контейнеризація та доставка | Docker, docker-compose для локального запуску; конвеєр GitHub Actions (lint, typecheck, test, build) тривалістю ≤ 10 хв |
 | Якість коду | Автоматизоване тестування | Jest, Supertest: покриття рядків сервісного шару ≥ 80 %; Maestro: E2E-сценарії для Snap & Sell, видачі за QR та аналітики |
 
@@ -204,11 +204,11 @@
 
 ## Перелік джерел до розділу 1
 
-1. Too Good To Go. Software Engineer (Backend) [Електронний ресурс]. Режим доступу: https://job-boards.greenhouse.io/toogoodtogo/jobs/7655378003 (дата звернення: 30.09.2026).
-2. Flashfood. Senior Staff / Staff Full-Stack Engineer [Електронний ресурс]. Режим доступу: https://jobs.techstars.com/companies/flashfood/jobs/64297630-senior-staff-staff-full-stack-engineer (дата звернення: 30.09.2026).
-3. Flashfood. Tech Lead / Principal Engineer [Електронний ресурс]. Режим доступу: https://builtin.com/job/tech-lead-principal-engineer/7290811 (дата звернення: 30.09.2026).
-4. Flashfood. Senior Front End Engineer [Електронний ресурс]. Режим доступу: https://jobs.techstars.com/companies/flashfood/jobs/71240796-senior-front-end-engineer (дата звернення: 30.09.2026).
-5. FoodNavigator-USA. Flashfood helps retailers boost EBIT, drive store traffic [Електронний ресурс]. 2022. Режим доступу: https://www.foodnavigator-usa.com/Article/2022/04/07/flashfood-helps-retailers-boost-ebit-3-5-drive-store-traffic-by-connecting-shoppers-to-would-be-wasted-food (дата звернення: 30.09.2026).
-6. Saran C. How computer vision powered by Nvidia helped Winnow tackle food waste [Електронний ресурс] // Computer Weekly. 2019. Режим доступу: https://www.computerweekly.com/news/252465110/How-computer-vision-powered-by-Nvidia-helped-Winnow-tackle-food-waste (дата звернення: 30.09.2026).
-7. Winnow. Food waste management software [Електронний ресурс]. Режим доступу: https://www.winnowsolutions.com/product/food-waste-management-software (дата звернення: 30.09.2026).
-8. RestaurantTools. Winnow overview (вторинне джерело) [Електронний ресурс]. Режим доступу: https://restauranttools.ai/tools/winnow (дата звернення: 30.09.2026).
+1. Too Good To Go. Software Engineer (Backend) [Електронний ресурс]. Режим доступу: <https://job-boards.greenhouse.io/toogoodtogo/jobs/7655378003> (дата звернення: 30.09.2026).
+2. Flashfood. Senior Staff / Staff Full-Stack Engineer [Електронний ресурс]. Режим доступу: <https://jobs.techstars.com/companies/flashfood/jobs/64297630-senior-staff-staff-full-stack-engineer> (дата звернення: 30.09.2026).
+3. Flashfood. Tech Lead / Principal Engineer [Електронний ресурс]. Режим доступу: <https://builtin.com/job/tech-lead-principal-engineer/7290811> (дата звернення: 30.09.2026).
+4. Flashfood. Senior Front End Engineer [Електронний ресурс]. Режим доступу: <https://jobs.techstars.com/companies/flashfood/jobs/71240796-senior-front-end-engineer> (дата звернення: 30.09.2026).
+5. FoodNavigator-USA. Flashfood helps retailers boost EBIT, drive store traffic [Електронний ресурс]. 2022. Режим доступу: <https://www.foodnavigator-usa.com/Article/2022/04/07/flashfood-helps-retailers-boost-ebit-3-5-drive-store-traffic-by-connecting-shoppers-to-would-be-wasted-food> (дата звернення: 30.09.2026).
+6. Saran C. How computer vision powered by Nvidia helped Winnow tackle food waste [Електронний ресурс] // Computer Weekly. 2019. Режим доступу: <https://www.computerweekly.com/news/252465110/How-computer-vision-powered-by-Nvidia-helped-Winnow-tackle-food-waste> (дата звернення: 30.09.2026).
+7. Winnow. Food waste management software [Електронний ресурс]. Режим доступу: <https://www.winnowsolutions.com/product/food-waste-management-software> (дата звернення: 30.09.2026).
+8. RestaurantTools. Winnow overview (вторинне джерело) [Електронний ресурс]. Режим доступу: <https://restauranttools.ai/tools/winnow> (дата звернення: 30.09.2026).
